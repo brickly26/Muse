@@ -15,18 +15,16 @@ import {
 import { MusicNote, Notifications, DarkMode } from "@mui/icons-material";
 
 const Navbar = () => {
+
   const UserBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     gap: "20px",
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
-    },
   }));
 
   return (
-    <AppBar position="">
-      <Toolbar>
+    <AppBar>
+      <Toolbar sx={{ display: 'flex', justifyContent: "space-between"}}>
         <ButtonBase
           size="large"
           edge="start"
@@ -36,7 +34,7 @@ const Navbar = () => {
         >
           <MusicNote />
           <Typography
-            ml={2}
+            ml={1}
             variant="h6"
             noWrap
             component="a"
@@ -53,7 +51,7 @@ const Navbar = () => {
         <Button variant="contained" color="success">
           Search
         </Button>
-        <Box>
+        <Box >
           <IconButton>
             <Badge >
               <Notifications />
@@ -67,7 +65,10 @@ const Navbar = () => {
             />
             <Typography variant="span">Burak</Typography>
           </UserBox>
-          <Switch defaultChecked color="default" />
+          <Box>
+            <DarkMode />
+            <Switch defaultChecked color="default" />
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
