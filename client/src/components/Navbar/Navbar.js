@@ -1,89 +1,78 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+import React from "react";
+import {
+  AppBar,
+  IconButton,
+  ButtonBase,
+  Toolbar,
+  Typography,
+  Button,
+  styled,
+  Avatar,
+  Switch,
+  Box,
+  Badge
+} from "@mui/material";
+import { MusicNote, Notifications, DarkMode } from "@mui/icons-material";
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
+const Navbar = () => {
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+  const UserBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+  }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
-export default function SearchAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+    <AppBar>
+      <Toolbar sx={{ display: 'flex', justifyContent: "space-between"}}>
+        <ButtonBase
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+        >
+          <MusicNote />
           <Typography
+            ml={1}
             variant="h6"
             noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            component="a"
+            href="/"
+            sx={{
+              display: { xs: "none", sm: "block" },
+              textDecoration: "none",
+              color: "inherit",
+            }}
           >
-            MUI
+            Muse
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+        </ButtonBase>
+        <Button variant="contained" color="success">
+          Search
+        </Button>
+        <Box >
+          <IconButton>
+            <Badge >
+              <Notifications />
+            </Badge>
+          </IconButton>
+          <UserBox>
+            <Avatar
+              sx={{ width: 30, height: 30 }}
+              src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+              onClick={() => {}}
             />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
+            <Typography variant="span">Burak</Typography>
+          </UserBox>
+          <Box>
+            <DarkMode />
+            <Switch defaultChecked color="default" />
+          </Box>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
-}
+};
+
+export default Navbar;
