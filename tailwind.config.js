@@ -24,11 +24,11 @@ module.exports = {
         ' 50%': '50%',
       },
       backgroundColor: {
-        primary: '#F1F1F2',
-        blur: '#030303',
+        header: '#191314',
+        sidebar: '#000000'
       },
       colors: {
-        primary: 'rgb(22, 24, 35)',
+        primary: '#1FB954',
       },
       height: {
         '88vh': '88vh',
@@ -41,3 +41,4 @@ module.exports = {
   },
   plugins: [],
 };
+
