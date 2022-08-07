@@ -12,9 +12,9 @@ const Sidebar = () => {
   const [showSideBar, setShowSideBar] = useState(true);
   const { pathname } = useRouter()
 
-  const activeStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#1FB954] rounded'
+  const activeStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-start  cursor-pointer font-semibold text-[#1FB954] rounded'
 
-  const normalStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-center xl:justify-start cursor-pointer font-semibold text-gray3 rounded'
+  const normalStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-startcursor-pointer font-semibold text-gray3 rounded'
 
   return (
     <div>
@@ -25,7 +25,7 @@ const Sidebar = () => {
         {showSideBar ? <ImCancelCircle /> : <AiOutlineMenu />}
       </p>
       {showSideBar && (
-        <div className='xl:w-400 w-20 flex flex-col justify-start mb-10 border-r-2 border-gray3 xl:border-0 py-3'>
+        <div className='xl:w-400 w-28 pl-3 flex flex-col justify-start mb-10 border-r-2 border-gray3 xl:border-0 py-3'>
           <div className='xl:border-b-2 border-gray3 xl:pb-4'>
             <Link href='/' >
               <div className={pathname === '/' ? activeStyles : normalStyles}>
