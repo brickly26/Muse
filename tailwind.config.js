@@ -24,11 +24,13 @@ module.exports = {
         ' 50%': '50%',
       },
       backgroundColor: {
-        primary: '#F1F1F2',
-        blur: '#030303',
+        black: '#191314',
+        gray1: '#191314',
+        gray2: '#2A2626',
       },
       colors: {
         primary: 'rgb(22, 24, 35)',
+        gray3: '#B2B2B2'
       },
       height: {
         '88vh': '88vh',

@@ -7,6 +7,9 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  background-color: #191314;
+  color: white;
+  font-family: 'Circular Std'
 }
 
 a {
