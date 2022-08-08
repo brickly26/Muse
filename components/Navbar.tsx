@@ -53,7 +53,7 @@ const Navbar = () => {
             value={searchValue}
             placeholder="Search..."
             onChange={(e) => setSearchValue(e.target.value)}
-            className="bg-white px-4 py-2 md:text-md font-medium border-2 border-white focus:outline-none focus:border-2 focus:border-gray3 rounded-full md:top-0 bg-black"
+            className="bg-white text-black px-4 py-2 md:text-md font-medium border-2 border-white focus:outline-none focus:border-2 focus:border-gray3 rounded-full w-[300px] md:w-[350px] md:top-0 bg-black"
           />
           <button
             onClick={handleSearch}

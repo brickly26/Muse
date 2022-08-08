@@ -22,7 +22,7 @@ const SuggestedAccounts = () => {
       <div>
         {allUsers.slice(0, 5).map((user: IUser) => (
           <Link href={`/profile/${user._id}`}>
-            <div className="flex gap-3 hover:bg-primary p-2 cursor-pointer font-semibold rounded">
+            <div className="flex gap-3 hover:bg-primary bg-gray2 mb-2 p-2 cursor-pointer font-semibold rounded">
               <div className="w-8 h-8">
                 <Image 
                   src={user.image}
@@ -35,7 +35,7 @@ const SuggestedAccounts = () => {
               </div>
               <div className="hidden xl:block">
                 <p className="flex gap-1 items-center text-md font-bold lowercase">
-                  {user.userName}
+                  {user.userName.replaceAll(' ', '')}
                   <GoVerified />
                 </p>
                 <p className="capitalize text-gray-500 text-xs">

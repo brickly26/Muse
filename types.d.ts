@@ -1,7 +1,8 @@
 export interface Like {
+  _id: string;
   type: string;
   name: string;
-  by: string;
+  by: string[];
   image: string;
   likedBy: {
     _id: string;
