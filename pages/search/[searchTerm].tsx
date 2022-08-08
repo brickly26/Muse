@@ -24,8 +24,11 @@ const Search = ({ albums, songs, artists }: IProps) => {
   const [following, setFollowing] = useState(true);
   const [tab, setTab] = useState("song");
   const router = useRouter();
+  const query = router.query;
   const { searchTerm }: any = router.query;
   const { allUsers } = useAuthStore();
+
+  console.log(query)
 
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
