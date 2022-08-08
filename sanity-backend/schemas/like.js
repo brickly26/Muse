@@ -21,7 +21,8 @@ export default {
     {
       name: 'by',
       title: 'By',
-      type: 'string',
+      type: 'array',
+      of: [{ type: 'string' }]
     },
     {
       name: 'likedBy',

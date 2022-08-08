@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BiSearch } from 'react-icons/bi';
 
 import Logo from '../utils/muse.png'
+import LoginModal from './LoginModal';
 
 const Navbar = () => {
+  const [isShowLogin, setIsShowLogin] = useState(false);
+
   return (
     <div className='w-full flex justify-between items-center border-b-2 border-gray3 pb-2 pt-4 px-4'>
       <Link href='/' >
@@ -40,9 +43,13 @@ const Navbar = () => {
         </form>
       </div>
       
-      <div>
+      <button
+        className=''
+        onClick={() => setIsShowLogin(true)}
+      >
         Login section
-      </div>
+      </button>
+      {isShowLogin && (<LoginModal onClose={() => setIsShowLogin(false)}/>)}
     </div>
   );
 }
