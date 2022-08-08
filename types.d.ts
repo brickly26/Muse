@@ -1,4 +1,4 @@
-export interface Album {
+export interface Like {
   type: string;
   name: string;
   by: string;
@@ -10,25 +10,24 @@ export interface Album {
   }[];
 }
 
-export interface Artist {
-  type: string;
-  name: string;
+export interface IUser {
+  _id: string;
+  _type: string;
+  userName: string;
   image: string;
-  likedBy: {
+  likes: {
+    _id: string;
+    name: string;
+    image: string;
+  }[];
+  followers: {
     _id: string;
     userName: string;
-    image: 'string';
+    image: string
   }[];
-}
-
-export interface Song {
-  type: string;
-  name: string;
-  by: string;
-  image: string;
-  likedBy: {
+  followering: {
     _id: string;
     userName: string;
-    image: 'string';
-  }[];
+    image: string
+  }[]
 }

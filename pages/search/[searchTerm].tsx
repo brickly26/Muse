@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React from 'react';
 import { BASE_URL } from '../../utils';
-import { Artist, Album, Song } from '../../types';
+import { Like } from '../../types';
 
 interface IProps {
-  albums: Artist[]
-  songs: Song[]
-  artists: Artist[]
+  albums: Like[]
+  songs: Like[]
+  artists: Like[]
 }
 
 const Search = ({ albums, songs, artists }: IProps) => {

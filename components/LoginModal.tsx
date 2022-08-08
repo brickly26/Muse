@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import Image from 'next/image';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { ImCancelCircle } from 'react-icons/im';
 
 import useAuthStore from '../store/authStore';
