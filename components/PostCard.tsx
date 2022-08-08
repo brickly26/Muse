@@ -8,7 +8,7 @@ const PostCard = () => {
   const rocky = {
     type: "album",
     name: "Rocky IV",
-    by: "Rocky",
+    by: ["Rocky"],
     image: "https://i.scdn.co/image/ab67616d00001e02f4a2ccbe20d6d52f16816812",
     likedBy: {
       _id: "ajshdka",
@@ -20,7 +20,7 @@ const PostCard = () => {
 
   const rockwell = {
     type: "artist",
-    name: "Rockwell",
+    name: ["Rockwell"],
     by: [],
     image: "https://i.scdn.co/image/ab67616d0000b27357de8cb9bbbe22a9e71c8af7",
     likedBy: {
@@ -98,7 +98,7 @@ const PostCard = () => {
               <div className="flex-3">
                 <p className="text-2xl text-white mb-3">{rocky.name}</p>
                 <p className="text-lg text-gray-400 hover:underline">
-                  {rocky.by}
+                  {rocky.by.map((artist) => (`${artist}, `))}
                 </p>
               </div>
               <div className="flex justify-end mr-5 items-center flex-1">
@@ -162,7 +162,7 @@ const PostCard = () => {
               <div className="flex-3">
                 <p className="text-2xl text-white mb-3">{rockwell.name}</p>
                 <p className="text-lg text-gray-400 hover:underline">
-                  {rockwell.type}
+                  {rockwell.by.map((artist) => (`${artist}, `))}
                 </p>
               </div>
               <div className="flex justify-end mr-5 items-center flex-1">
