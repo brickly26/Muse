@@ -142,11 +142,9 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
 
       {tab === "song" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {songs.map((song: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(song);
-
-            return <SongCard post={song} alreadyPosted={alreadyCreated} key={idx} />
-          })}
+          {songs.map((song: Like, idx: number) => (
+            <SongCard post={song} key={idx} />
+          ))}
         </div>
       )}
 
@@ -162,11 +160,9 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
 
       {tab === "album" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {albums.map((album: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(album)
-
-            return <AlbumCard post={album} alreadyPosted={alreadyCreated} key={idx} />
-          })}
+          {albums.map((album: Like, idx: number) => (
+            <AlbumCard post={album} key={idx} />
+          ))}
         </div>
       )}
 

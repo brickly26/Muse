@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { client } from '../../../utils/client';
 import axios from 'axios';
-import { allLikesQuery } from '../../../utils/queries';
+import { userLikesQuery } from '../../../utils/queries';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if(req.method === 'GET') {
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       image: `${track.data.albumOfTrack.coverArt.sources[0].url}`
     }));
 
-    const likes = await client.fetch(allLikesQuery());
+    const likes = await client.fetch(userLikesQuery());
 
     const response = {
       likes: likes,

@@ -11,10 +11,9 @@ interface IProps {
     image: string;
     by: string[];
   };
-  alreadyPosted: string;
 }
 
-const SongCard = ({ post, alreadyPosted }: IProps) => {
+const SongCard = ({ post }: IProps) => {
   const [error, setError] = useState(false);
 
   const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp'

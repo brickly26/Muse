@@ -15,7 +15,7 @@ interface IProps {
     type: string;
     image: string;
   };
-  alreadyPosted: string
+  alreadyPosted: string;
 }
 
 const ArtistCard = ({ post, alreadyPosted }: IProps) => {
@@ -26,9 +26,16 @@ const ArtistCard = ({ post, alreadyPosted }: IProps) => {
   const checkIfUserLiked = async () => {
     const { data } = await axios.get(`${BASE_URL}/api/user/${userProfile._id}`);
 
+    if(post.name === 'Sade') {
+      console.log(data)
+      console.log(post._id)
+    }
+
     if(!data[0].likes) {
       data[0]?.likes?.forEach((like: any) => {
-        if (post._id === like._id) {
+        if (post._id === like._ref) {
+          console.log('post', post._id);
+          console.log('userlike', like._ref)
           setAlreadyLiked(true)
         }
       })
@@ -36,7 +43,7 @@ const ArtistCard = ({ post, alreadyPosted }: IProps) => {
   }
 
   useEffect(() => {
-    if(alreadyPosted.length > 0) {
+    if(userProfile._id) {
       checkIfUserLiked()
     }
   }, [])
@@ -64,8 +71,8 @@ const ArtistCard = ({ post, alreadyPosted }: IProps) => {
         </div>
         <div className="flex justify-end mr-5 items-center flex-1">
           {userProfile && (
-            <LikeButton 
-              alreadyPosted={alreadyPosted}
+            <LikeButton
+              setAlreadyLiked={setAlreadyLiked}
               alreadyLiked={alreadyLiked}
               userId={userProfile._id}
               post={post}

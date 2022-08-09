@@ -14,7 +14,7 @@ import { createOrGetUser } from '../utils';
 
 const Navbar = () => {
   const [isShowLogin, setIsShowLogin] = useState<boolean>(false);
-  const { userProfile, removeUser, addUser } = useAuthStore();
+  const { userProfile, removeUser, addUser, removeUserLikes, fetchAllUsers } = useAuthStore();
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
@@ -28,7 +28,7 @@ const Navbar = () => {
 
     if (searchValue) {
       router.push(`/search/${searchValue}`)
-    }
+    } 
   }
 
   return (
@@ -86,6 +86,7 @@ const Navbar = () => {
             onClick={() => {
               googleLogout();
               removeUser();
+              removeUserLikes();
             }}
           >
             <FiLogOut color="#1fb954" fontSize={21} />
@@ -93,7 +94,7 @@ const Navbar = () => {
         </div>
       ) : (
         <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser)}
+            onSuccess={(response) => createOrGetUser(response, addUser, fetchAllUsers)}
             onError={() => console.log('Error')}
         />
       )}
