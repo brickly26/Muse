@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { client } from '../../../utils/client';
 import axios from 'axios';
+import { allLikesQuery } from '../../../utils/queries';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if(req.method === 'GET') {
@@ -31,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       _id: `${artist.data.uri}`,
       type: 'artist',
       name: `${artist.data.profile.name}`,
-      image: `${artist.data.visuals.avatarImage.sources[0].url}`
+      image: `${artist.data.visuals.avatarImage?.sources[0].url}`
     }));
 
     const myTracks = tracks?.items.map((track: any) => ({
@@ -42,7 +44,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       image: `${track.data.albumOfTrack.coverArt.sources[0].url}`
     }));
 
+    const likes = await client.fetch(allLikesQuery());
+
     const response = {
+      likes: likes,
       albums: myAlbums,
       artists: myArtists,
       tracks: myTracks

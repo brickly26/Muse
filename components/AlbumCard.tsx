@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsHeartFill } from 'react-icons/bs'
@@ -9,10 +9,24 @@ interface IProps {
     image: string;
     name: string;
     by: string[];
-  }
+  };
+  alreadyPosted: string
 }
 
-const AlbumCard = ({ post }: IProps) => {
+const AlbumCard = ({ post, alreadyPosted }: IProps) => {
+  const [error, setError] = useState(false);
+  const [alreadyLiked, setAlreadyLiked] = useState(false);
+  const [checkIfLiked, setCheckIfLiked] = useState(false);
+
+  console.log(alreadyPosted)
+
+  // if(alreadyPosted.length > 0) {
+  //   setCheckIfLiked(true)
+  // }
+
+
+  const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp';
+  
   return (
     <div className="lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
       <div className="rounded-md lg:w-[450px] lg:h-[450px] mt-6 m-auto">
@@ -20,7 +34,8 @@ const AlbumCard = ({ post }: IProps) => {
           width={62}
           height={62}
           className="rounded-md"
-          src={post.image}
+          onError={() => setError(true)}
+          src={!error ? post.image : musicPic}
           layout="responsive"
         />
       </div>

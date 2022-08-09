@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from 'next/image';
 import Link from 'next/Link'
 import { BsHeartFill } from 'react-icons/bs'
@@ -10,10 +10,15 @@ interface IProps {
     type: string;
     image: string;
     by: string[];
-  }
+  };
+  alreadyPosted: string;
 }
 
-const SongCard = ({ post }: IProps) => {
+const SongCard = ({ post, alreadyPosted }: IProps) => {
+  const [error, setError] = useState(false);
+
+  const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp'
+
   return (
     <Link href={`./song/${post._id}`}>
       <div className="flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
@@ -23,7 +28,8 @@ const SongCard = ({ post }: IProps) => {
               width={62}
               height={62}
               className="rounded-md"
-              src={post.image}
+              onError={() => setError(true)}
+              src={!error ? post.image : musicPic}
               layout="responsive"
             />
           </div>

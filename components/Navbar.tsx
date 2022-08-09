@@ -5,15 +5,16 @@ import Router, { useRouter } from 'next/router'
 import { BiSearch } from "react-icons/bi";
 import { googleLogout } from "@react-oauth/google";
 import { FiLogOut } from "react-icons/fi";
+import { GoogleLogin } from '@react-oauth/google';
 
 import useAuthStore from "../store/authStore";
 import Logo from "../utils/muse.png";
-import LoginModal from "./LoginModal";
 import { IUser } from "../types";
+import { createOrGetUser } from '../utils';
 
 const Navbar = () => {
   const [isShowLogin, setIsShowLogin] = useState<boolean>(false);
-  const { userProfile, removeUser } = useAuthStore();
+  const { userProfile, removeUser, addUser } = useAuthStore();
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
@@ -91,12 +92,10 @@ const Navbar = () => {
           </button>
         </div>
       ) : (
-        <>
-          <button className="" onClick={() => setIsShowLogin(true)}>
-            Login section
-          </button>
-          {isShowLogin && <LoginModal onClose={() => setIsShowLogin(false)} />}
-        </>
+        <GoogleLogin
+            onSuccess={(response) => createOrGetUser(response, addUser)}
+            onError={() => console.log('Error')}
+        />
       )}
     </div>
   );
