@@ -18,9 +18,15 @@ interface IProps {
   albums: Like[];
   songs: Like[];
   artists: Like[];
+  likes: {
+    _id: string;
+    name: string;
+    type: string;
+    image: string;
+  }[]
 }
 
-const Search = ({ albums, songs, artists }: IProps) => {
+const Search = ({ albums, songs, artists, likes }: IProps) => {
   const [following, setFollowing] = useState(true);
   const [tab, setTab] = useState("song");
   const router = useRouter();
@@ -36,6 +42,22 @@ const Search = ({ albums, songs, artists }: IProps) => {
     user.userName.toLowerCase().includes(searchTerm.toLowerCase())
   ); 
 
+  const checkIfAlreadyPosted = (post: any) => {
+    let alreadyCreated = ''
+    const filteredLikes = likes.filter((like) => like.image === post.image);
+    if (filteredLikes.length > 0) {
+      console.log(filteredLikes)
+    }
+    if(filteredLikes.length > 0) {
+      filteredLikes.forEach((like) => {
+        if (post.type === like.type && post.name === like.name) {
+          alreadyCreated = like._id
+        }
+      })
+    }
+
+    return alreadyCreated
+  }
 
   return (
     <div className="w-full">
@@ -128,9 +150,11 @@ const Search = ({ albums, songs, artists }: IProps) => {
 
       {tab === "artist" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {artists.map((artist: Like, idx: number) => (
-            <ArtistCard post={artist} key={idx} />
-          ))}
+          {artists.map((artist: Like, idx: number) => {
+            const alreadyCreated = checkIfAlreadyPosted(artist);
+
+            return <ArtistCard post={artist} alreadyPosted={alreadyCreated} key={idx} />
+          })}
         </div>
       )}
 
@@ -156,6 +180,7 @@ export const getServerSideProps = async ({
 
   return {
     props: {
+      likes: res.data.likes || null,
       artists: res.data.artists || null,
       albums: res.data.albums || null,
       songs: res.data.tracks || null,

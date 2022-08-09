@@ -10,8 +10,8 @@ export const singleUserQuery = (userId: string | string[]) => {
   return query;
 };
 
-export const allLikesQuery = () => {
-  const query = `*[_type == "like"] | order(_createdAt desc){
+export const userLikesQuery = (userId: string | string[]) => {
+  const query = `*[_type == "like" && likedBy == '${userId}']{
     _id,
     type,
     name,

@@ -15,9 +15,10 @@ interface IProps {
     type: string;
     image: string;
   };
+  alreadyPosted: string;
 }
 
-const ArtistCard = ({ post }: IProps) => {
+const ArtistCard = ({ post, alreadyPosted }: IProps) => {
   const [error, setError] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
@@ -25,9 +26,16 @@ const ArtistCard = ({ post }: IProps) => {
   const checkIfUserLiked = async () => {
     const { data } = await axios.get(`${BASE_URL}/api/user/${userProfile._id}`);
 
+    if(post.name === 'Sade') {
+      console.log(data)
+      console.log(post._id)
+    }
+
     if(!data[0].likes) {
       data[0]?.likes?.forEach((like: any) => {
-        if (post._id === like._id) {
+        if (post._id === like._ref) {
+          console.log('post', post._id);
+          console.log('userlike', like._ref)
           setAlreadyLiked(true)
         }
       })
@@ -35,7 +43,9 @@ const ArtistCard = ({ post }: IProps) => {
   }
 
   useEffect(() => {
+    if(userProfile._id) {
       checkIfUserLiked()
+    }
   }, [])
 
   const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -62,6 +72,7 @@ const ArtistCard = ({ post }: IProps) => {
         <div className="flex justify-end mr-5 items-center flex-1">
           {userProfile && (
             <LikeButton
+              setAlreadyLiked={setAlreadyLiked}
               alreadyLiked={alreadyLiked}
               userId={userProfile._id}
               post={post}
