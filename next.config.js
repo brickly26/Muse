@@ -4,7 +4,8 @@ const nextConfig = {
   images: {
     domains: [
       'cdn.pixabay.com',
-      'i.scdn.co'
+      'i.scdn.co',
+      'lh3.googleusercontent.com'
     ]
   },
   swcMinify: true,
