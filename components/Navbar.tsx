@@ -14,7 +14,7 @@ import { createOrGetUser } from '../utils';
 
 const Navbar = () => {
   const [isShowLogin, setIsShowLogin] = useState<boolean>(false);
-  const { userProfile, removeUser, addUser, removeUserLikes, fetchAllUsers } = useAuthStore();
+  const { userProfile, removeUser, addUser, removeUserLikes, fetchUserLikes, userLikes } = useAuthStore();
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
@@ -94,7 +94,7 @@ const Navbar = () => {
         </div>
       ) : (
         <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser, fetchAllUsers)}
+            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes)}
             onError={() => console.log('Error')}
         />
       )}

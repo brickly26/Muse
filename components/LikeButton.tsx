@@ -13,27 +13,25 @@ interface IProps {
     name: string;
     image: string;
   };
-  alreadyLiked: boolean;
-  setAlreadyLiked: any
 }
 
-const LikeButton = ({ userId, post, alreadyLiked, setAlreadyLiked }: IProps) => {
+const LikeButton = ({ userId, post }: IProps) => {
 
-  if(post.name === 'SadBoyProlific'){
-    console.log('start', alreadyLiked)
-  }
+  // if(post.name === 'SadBoyProlific'){
+  //   console.log('start', alreadyLiked)
+  // }
 
   const handleLike = async () => {
-    console.log('inside1', alreadyLiked);
+    // console.log('inside1', alreadyLiked);
 
-    // setAlreadyLiked((prev: any) => !prev);
+    // // setAlreadyLiked((prev: any) => !prev);
 
-    console.log('inside2', alreadyLiked)
+    // console.log('inside2', alreadyLiked)
     try {
       const response = await axios.put(`${BASE_URL}/api/like`, {
         userId: userId,
         post: post,
-        like: alreadyLiked,
+        // like: alreadyLiked,
       }) 
     } catch (error) {
       // setAlreadyLiked((prev: any) => !prev);
@@ -42,7 +40,8 @@ const LikeButton = ({ userId, post, alreadyLiked, setAlreadyLiked }: IProps) => 
 
   return (
     <>
-      {alreadyLiked ? (
+     {/* {alreadyLiked ? ( */}
+      {true ? (
         <div 
           className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-red text-yellow"
           onClick={handleLike}

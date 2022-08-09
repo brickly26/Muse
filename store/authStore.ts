@@ -2,7 +2,6 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import axios from 'axios';
 import { BASE_URL } from '../utils';
-import { client } from '../utils/client';
 
 const authStore = (set: any) => ({
   userProfile: null,
@@ -19,12 +18,12 @@ const authStore = (set: any) => ({
   },
 
   fetchUserLikes: async (userId: string) => {
-    const response = await axios.get(`${BASE_URL}/api/userLikes/${userId}`)
+    const response = await axios.get(`${BASE_URL}/api/userLikes/${userId}`);
 
     set({ userLikes : response.data })
   },
 
-  removeUserLikes: set({ userLikes: [] }),
+  removeUserLikes: () => set({ userLikes: [] }),
 });
 
 const useAuthStore = create(
