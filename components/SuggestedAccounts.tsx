@@ -42,6 +42,9 @@ const SuggestedAccounts = () => {
                   {user.userName}
                 </p>
               </div>
+              <div>
+                
+              </div>
             </div>
           </Link>
         ))}

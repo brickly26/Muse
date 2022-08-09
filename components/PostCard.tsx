@@ -90,38 +90,8 @@ const PostCard = () => {
       {/* rocky album */}
 
       <div className="flex flex-col border-b-2 border-gray3 pb-6">
-        <div className="mb-5">
-          <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
-            <div className="md:w-16 md:h-16 w-10 h-10">
-              <Link href={`/profile/${rocky.likedBy._id}`}>
-                <div className="m-0 p-0">
-                  <Image
-                    width={62}
-                    height={62}
-                    className="rounded-full"
-                    src={rocky.likedBy.image}
-                    alt="profile photo"
-                    layout="responsive"
-                  />
-                </div>
-              </Link>
-            </div>
-            <div>
-              <Link href={`/`}>
-                <div className="flex items-center gap-2">
-                  <p className="flex gap-2 text-lg items-center font-bold">
-                    {rocky.likedBy.userName}
-                    <GoVerified className="text-[#1FB954] text-md" />
-                  </p>
-                  <p className="capitalize font-medium text-xs text-gray-500 hidden md:block">
-                    {rocky.likedBy.userName}
-                  </p>
-                </div>
-              </Link>
-              <p className="text-sm mt-3">{`Liked this ${rocky.type} a few seconds ago`}</p>
-            </div>
-          </div>
-        </div>
+        
+        <UserBadge location="feed" user={results[0]} post={rocky} />
 
         {rocky.type === "album" && <AlbumCard post={rocky} />}
       </div>

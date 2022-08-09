@@ -42,3 +42,15 @@ export const userFollowersQuery = (userId: string | string[]) => {
 
   return query;
 };
+
+export const allLikesQuery = (userId: string | string[]) => {
+  const query = `*[_type == "like"]{
+    name,
+    _id,
+    image,
+    type,
+    likedBy->
+  }`;
+
+  return query;
+};

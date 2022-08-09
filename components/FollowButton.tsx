@@ -6,10 +6,11 @@ import { BASE_URL } from '../utils';
 
 interface IProps {
   following: boolean;
-  userId: string
+  userId: string;
+  location: string;
 }
 
-const FollowButton = ({ following, userId }: IProps) => {
+const FollowButton = ({ following, userId, location }: IProps) => {
   const { userProfile }: any = useAuthStore();
   const [followed, setFollowed] = useState(following)
 
@@ -25,12 +26,18 @@ const FollowButton = ({ following, userId }: IProps) => {
     followed ? setFollowed(false) : setFollowed(true)
   }
 
+  const suggestedStyles1 = location === 'suggested' ? 'bg-neutral-600 mr-5 px-3 py-2 rounded hover:bg-neutral-700 hidden md:block cursor-pointer' : ''
+  const suggestedStyles2 = location === 'suggested' ? 'flex text-lg font-semibold items-center gap-2 text-[#1FB954]' : ''
+  const searchStyles1 = location === 'search' ? 'bg-neutral-600 mr-5 px-3 py-2 rounded hover:bg-neutral-700 cursor-pointer' : ''
+  const searchStyles2 = location === 'search' ? 'flex text-lg font-semibold items-center gap-2 text-[#1FB954]' : ''
+
+
   return (
     <div 
-      className='bg-neutral-600 mr-5 px-3 py-2 rounded hover:bg-neutral-700 cursor-pointer'
+      className={`${suggestedStyles1} ${searchStyles1}`}
       onClick={handleFollow}
     >
-      <p className='flex text-lg font-semibold items-center gap-2 text-[#1FB954]'>
+      <p className={`${suggestedStyles2} ${searchStyles2}`}>
         <RiUserFollowLine />
         Follow
       </p>
