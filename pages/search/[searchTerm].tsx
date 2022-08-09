@@ -26,7 +26,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
   const [tab, setTab] = useState("song");
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const { allUsers, userLikes, fetchUserLikes, userProfile } = useAuthStore();
+  const { allUsers, fetchUserLikes, userProfile } = useAuthStore();
 
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";

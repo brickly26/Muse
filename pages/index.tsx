@@ -11,7 +11,7 @@ interface IProps {
 
 const Home: NextPage = () => {
   return (
-    <div className='flex flex-col gap-10 h-full'>
+    <div className='flex flex-col gap-10 h-full pt-3'>
       <PostCard />
     </div>
   )

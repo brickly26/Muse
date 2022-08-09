@@ -38,3 +38,14 @@ export const checkIfAlreadyLiked = (post: any) => {
 
   return alreadyLikedId
 }
+
+export const checkIfAlreadyFollowing = (user: any) => {
+  const { userFollowers } = useAuthStore();
+  const filteredFollowing = userFollowers.filter((following: any) => user._id === following._id)
+
+  if(filteredFollowing.length > 0) {
+    return true
+  } else {
+    return false
+  }
+}
