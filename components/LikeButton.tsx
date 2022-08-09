@@ -12,6 +12,7 @@ interface IProps {
     type: string;
     name: string;
     image: string;
+    by?: string[]
   };
 }
 

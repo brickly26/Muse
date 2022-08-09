@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import Image from 'next/image';
-import Link from 'next/Link'
-import { BsHeartFill } from 'react-icons/bs'
+import Image from "next/image";
+import Link from "next/Link";
+import { BsHeartFill } from "react-icons/bs";
+import useAuthStore from "../store/authStore";
+import LikeButton from "./LikeButton";
 
 interface IProps {
   post: {
@@ -11,12 +13,15 @@ interface IProps {
     image: string;
     by: string[];
   };
+  alreadyLiked: boolean;
 }
 
-const SongCard = ({ post }: IProps) => {
+const SongCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
+  const { userProfile } = useAuthStore();
 
-  const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp'
+  const musicPic =
+    "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
   return (
     <Link href={`./song/${post._id}`}>
@@ -41,9 +46,17 @@ const SongCard = ({ post }: IProps) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954] mr-10">
-          <BsHeartFill />
-        </div>
+        {userProfile && (
+            <LikeButton
+              alreadyLiked={alreadyLiked}
+              post={post}
+            />
+          )}
+        {false && (
+          <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954] mr-10">
+            <BsHeartFill />
+          </div>
+        )}
       </div>
     </Link>
   );

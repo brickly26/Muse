@@ -1,64 +1,49 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import Link from "next/link";
-import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
-
-import { BASE_URL } from "../../utils";
-import { IUser, Like } from "../../types";
-import useAuthStore from "../../store/authStore";
-import { GoVerified } from "react-icons/go";
-import NoResults from "../../components/NoResults";
-import SongCard from "../../components/SongCard";
-import ArtistCard from "../../components/ArtistCard";
-import AlbumCard from "../../components/AlbumCard";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { GoVerified } from 'react-icons/go';
+import axios from 'axios';
+import { BASE_URL } from '../../utils';
+import { Like, IUser } from '../../types'
+import SongCard from '../../components/SongCard';
 
 interface IProps {
-  albums: Like[];
-  songs: Like[];
-  artists: Like[];
+  user: {
+    name: string;
+    image: string;
+    likes: Like;
+    following: IUser[]
+    followers: IUser[]
+  }
 }
 
-const Search = ({ albums, songs, artists }: IProps) => {
-  const [user, setUser] = useState<IUser | null>()
-  const [tab, setTab] = useState("song");
-  const router = useRouter();
-  const { searchTerm }: any = router.query;
-  const { allUsers, userLikes, fetchUserLikes, userProfile } = useAuthStore();
-
-  const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
-  const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
-  const songTab = tab === "song" ? "border-b-2 border-white" : "text-gray3";
-  const accountTab =
-    tab === "account" ? "border-b-2 border-white" : "text-gray3";
-  const searchedAccounts = allUsers.filter((user: IUser) =>
-    user.userName.toLowerCase().includes(searchTerm.toLowerCase())
-  ); 
-
-  useEffect(() => {
-    setUser(userProfile)
-    if(user) {
-      fetchUserLikes(user._id);
-    }
-  }, [user])
-
-  const checkIfAlreadyLiked = (post: any) => {
-    let alreadyLikedId = ''
-    const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
-    if(filteredLikes.length > 0) {
-      filteredLikes.forEach((like: Like) => {
-        if (post.type === like.type && post.name === like.name) {
-          alreadyLikedId = like._id
-        }
-      })
-    }
-
-    return alreadyLikedId
-  }
+const Profile = ({ user }: IProps) => {
+  const [tab, setTab] = useState('likes');
+  
 
   return (
     <div className="w-full">
+      <div className="flex gap-6 md:gap-10 mb-4 bg-white w-full">
+        <div className="w-16 h-16 md:w-32 md:h-32">
+          <Image
+            src={user.image}
+            width={120}
+            height={120}
+            className="rounded-full"
+            alt="user profile"
+            layout="responsive"
+          />
+        </div>
+
+        <div className="flex flex-col justify-center">
+          <p className="md:text-2xl tracking-wider flex gap-1 items-center justify-center text-md font-bold text-primary lowercase">
+            {user.userName.replaceAll(" ", "")}
+            <GoVerified className="text-blue-400" />
+          </p>
+          <p className="capitalize md:text-xl text-gray-400 text-xs">{user.userName}</p>
+        </div>
+      </div>
+
+
       <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
         <p
           className={`text-xl font-semibold cursor-pointer mt-2 ${accountTab}`}
@@ -86,7 +71,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
         </p>
       </div>
 
-      {tab === "account" && (
+      {tab === "following" && (
         <div className="md:mt-16">
           {searchedAccounts.length > 0 ? (
             searchedAccounts.map((user: IUser, idx: number) => (
@@ -138,20 +123,26 @@ const Search = ({ albums, songs, artists }: IProps) => {
         </div>
       )}
 
-      {tab === "song" && (
-        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {songs.map((song: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(song);
-            let liked = false
+      {tab === "likes" && (
+        user.likes.length > 0 ? (
+          user.likes.map((like: Like, idx: number) => {
+            const type = like.type
 
-            if(alreadyLikedId.length > 0) {
-              song._id = alreadyLikedId
-              liked = true
+            if (type === 'song') {
+              return (
+                <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+                  <SongCard post={like} key={idx} />
+                </div>
+              )
+            } else if (type === 'album') {
+              return (
+
+              )
             }
+          })
+        ) : (
 
-            return <SongCard post={song} alreadyLiked={liked} key={idx} />
-          })}
-        </div>
+        )
       )}
 
       {tab === "artist" && (
@@ -172,39 +163,29 @@ const Search = ({ albums, songs, artists }: IProps) => {
 
       {tab === "album" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {albums.map((album: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(album);
-            let liked = false
-
-            if(alreadyLikedId.length > 0) {
-              album._id = alreadyLikedId
-              liked = true
-            }
-
-            return <AlbumCard post={album} alreadyLiked={liked} key={idx} />
-          })}
+          {albums.map((album: Like, idx: number) => (
+            <AlbumCard post={album} key={idx} />
+          ))}
         </div>
       )}
 
 
     </div>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async ({
-  params: { searchTerm },
+  params: { id },
 }: {
-  params: { searchTerm: "string" };
+  params: { id: string };
 }) => {
-  const res = await axios.get(`${BASE_URL}/api/search/${searchTerm}`);
+  const res = await axios.get(`${BASE_URL}/profile/${id}`);
+
+  console.log(res)
 
   return {
-    props: {
-      artists: res.data.artists || null,
-      albums: res.data.albums || null,
-      songs: res.data.tracks || null,
-    },
-  };
+    props: { user: res.data }
+  }
 };
 
-export default Search;
+export default Profile
