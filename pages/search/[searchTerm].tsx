@@ -9,6 +9,7 @@ import { BASE_URL } from "../../utils";
 import { IUser, Like } from "../../types";
 import useAuthStore from "../../store/authStore";
 import { GoVerified } from "react-icons/go";
+import { checkIfAlreadyLiked } from "../../utils";
 import NoResults from "../../components/NoResults";
 import SongCard from "../../components/SongCard";
 import ArtistCard from "../../components/ArtistCard";
@@ -42,20 +43,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
       fetchUserLikes(user._id);
     }
   }, [user])
-
-  const checkIfAlreadyLiked = (post: any) => {
-    let alreadyLikedId = ''
-    const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
-    if(filteredLikes.length > 0) {
-      filteredLikes.forEach((like: Like) => {
-        if (post.type === like.type && post.name === like.name) {
-          alreadyLikedId = like._id
-        }
-      })
-    }
-
-    return alreadyLikedId
-  }
 
   return (
     <div className="w-full">

@@ -69,7 +69,7 @@ const Navbar = () => {
         <div className="flex gap-5 md:gap-10">
           {user?.image && (
             <Link href={`/profile/${user?._id}`}>
-              <>
+              <div>
                 <Image
                   width={40}
                   height={40}
@@ -77,7 +77,7 @@ const Navbar = () => {
                   src={user?.image}
                   alt="profile photo"
                 />
-              </>
+              </div>
             </Link>
           )}
           <button

@@ -1,5 +1,4 @@
 export interface Like {
-  length: number;
   _id: string;
   type: string;
   name: string;
