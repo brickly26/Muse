@@ -1,48 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BsCircleFill, BsHeartFill } from 'react-icons/bs';
 
 import useAuthStore from '../store/authStore';
 import { BASE_URL } from '../utils';
-import { BsHeartFill } from 'react-icons/bs';
 
 interface IProps {
-  userId: string;
+  alreadyLiked: boolean;
   post: {
     _id: string;
     type: string;
     name: string;
     image: string;
   };
-  alreadyLiked: boolean;
-  setAlreadyLiked: any
 }
 
-const LikeButton = ({ userId, post, alreadyLiked, setAlreadyLiked }: IProps) => {
-
-  if(post.name === 'SadBoyProlific'){
-    console.log('start', alreadyLiked)
-  }
+const LikeButton = ({ alreadyLiked, post }: IProps) => {
+  const [liked, setLiked] = useState(alreadyLiked);
+  const [updatingPost, setUpdatingPost] = useState(post);
+  const { userProfile }: any = useAuthStore();
 
   const handleLike = async () => {
-    console.log('inside1', alreadyLiked);
+    const response = await axios.put(`${BASE_URL}/api/like`, {
+      userId: userProfile?._id,
+      post: updatingPost,
+      like: liked,
+    });
 
-    // setAlreadyLiked((prev: any) => !prev);
-
-    console.log('inside2', alreadyLiked)
-    try {
-      const response = await axios.put(`${BASE_URL}/api/like`, {
-        userId: userId,
-        post: post,
-        like: alreadyLiked,
-      }) 
-    } catch (error) {
-      // setAlreadyLiked((prev: any) => !prev);
+    if(!liked) {
+      setLiked(true);
+      setUpdatingPost(response.data);
+    } else {
+      setLiked(false);
+      setUpdatingPost(post)
     }
   }
 
   return (
     <>
-      {alreadyLiked ? (
+     {/* {alreadyLiked ? ( */}
+      {true ? (
         <div 
           className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-red text-yellow"
           onClick={handleLike}

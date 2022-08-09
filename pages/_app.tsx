@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import Navbar from '../components/Navbar'
 import '../styles/globals.css'
 import Sidebar from '../components/Sidebar';
-import LoginModal from '../components/LoginModal';
+import useAuthStore from '../store/authStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSSR, setIsSSR] = useState(true);
@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}>
-      <div id="modal"></div>
       <div className='xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black'>
         <Navbar />
         <div className='flex gap-6 md:gap-20'>

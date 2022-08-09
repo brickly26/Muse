@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -18,20 +18,15 @@ interface IProps {
   albums: Like[];
   songs: Like[];
   artists: Like[];
-  likes: {
-    _id: string;
-    name: string;
-    type: string;
-    image: string;
-  }[]
 }
 
-const Search = ({ albums, songs, artists, likes }: IProps) => {
+const Search = ({ albums, songs, artists }: IProps) => {
+  const [user, setUser] = useState<IUser | null>()
   const [following, setFollowing] = useState(true);
   const [tab, setTab] = useState("song");
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const { allUsers } = useAuthStore();
+  const { allUsers, userLikes, fetchUserLikes, userProfile } = useAuthStore();
 
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
@@ -42,21 +37,25 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
     user.userName.toLowerCase().includes(searchTerm.toLowerCase())
   ); 
 
-  const checkIfAlreadyPosted = (post: any) => {
-    let alreadyCreated = ''
-    const filteredLikes = likes.filter((like) => like.image === post.image);
-    if (filteredLikes.length > 0) {
-      console.log(filteredLikes)
+  useEffect(() => {
+    setUser(userProfile)
+    if(user) {
+      fetchUserLikes(user._id);
     }
+  }, [user])
+
+  const checkIfAlreadyLiked = (post: any) => {
+    let alreadyLikedId = ''
+    const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
     if(filteredLikes.length > 0) {
-      filteredLikes.forEach((like) => {
+      filteredLikes.forEach((like: Like) => {
         if (post.type === like.type && post.name === like.name) {
-          alreadyCreated = like._id
+          alreadyLikedId = like._id
         }
       })
     }
 
-    return alreadyCreated
+    return alreadyLikedId
   }
 
   return (
@@ -151,9 +150,15 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
       {tab === "artist" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
           {artists.map((artist: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(artist);
+            const alreadyLikedId = checkIfAlreadyLiked(artist);
+            let liked = false
 
-            return <ArtistCard post={artist} alreadyPosted={alreadyCreated} key={idx} />
+            if(alreadyLikedId.length > 0) {
+              artist._id = alreadyLikedId
+              liked = true
+            }
+
+            return <ArtistCard post={artist} alreadyLiked={liked} key={idx} />
           })}
         </div>
       )}
@@ -180,7 +185,6 @@ export const getServerSideProps = async ({
 
   return {
     props: {
-      likes: res.data.likes || null,
       artists: res.data.artists || null,
       albums: res.data.albums || null,
       songs: res.data.tracks || null,

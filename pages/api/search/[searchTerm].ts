@@ -44,10 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       image: `${track.data.albumOfTrack.coverArt.sources[0].url}`
     }));
 
-    const likes = await client.fetch(userLikesQuery());
-
     const response = {
-      likes: likes,
       albums: myAlbums,
       artists: myArtists,
       tracks: myTracks
