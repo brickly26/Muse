@@ -7,6 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     const response = await client.fetch(allLikesQuery());
 
-    res.status(200).json(response.data);
+    res.status(200).json(response);
   }
 }
