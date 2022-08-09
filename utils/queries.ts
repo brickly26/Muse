@@ -15,7 +15,9 @@ export const profileUserQuery = (userId: string | string[]) => {
     _id,
     userName,
     image,
-    likes[]->
+    likes[]->,
+    following[]->
+    followers[]->
   }`;
 
   return query;

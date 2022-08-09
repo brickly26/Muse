@@ -36,8 +36,8 @@ export default {
       ]
     },
     {
-      name: 'followering',
-      title: 'Followering',
+      name: 'following',
+      title: 'Following',
       type: 'array',
       of: [
         {
