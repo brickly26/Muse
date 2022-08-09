@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import Image from 'next/image';
-import Link from 'next/link';
-import { BsHeartFill } from 'react-icons/bs'
+import Image from "next/image";
+import Link from "next/link";
+import { BsHeartFill } from "react-icons/bs";
+import LikeButton from "./LikeButton";
+import useAuthStore from "../store/authStore";
 
 interface IProps {
   post: {
@@ -10,13 +12,16 @@ interface IProps {
     name: string;
     by: string[];
   };
+  alreadyLiked: boolean;
 }
 
-const AlbumCard = ({ post }: IProps) => {
+const AlbumCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
+  const { userProfile } = useAuthStore();
 
-  const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp';
-  
+  const musicPic =
+    "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
+
   return (
     <div className="lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
       <div className="rounded-md lg:w-[450px] lg:h-[450px] mt-6 m-auto">
@@ -36,11 +41,19 @@ const AlbumCard = ({ post }: IProps) => {
             {post.by.map((artist) => `${artist}, `)}
           </p>
         </div>
-        <div className="flex justify-end mr-5 items-center flex-1">
-          <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954]">
-            <BsHeartFill />
+        {userProfile && (
+            <LikeButton
+              alreadyLiked={alreadyLiked}
+              post={post}
+            />
+          )}
+        {false && (
+          <div className="flex justify-end mr-5 items-center flex-1">
+            <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954]">
+              <BsHeartFill />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
