@@ -14,19 +14,16 @@ interface IProps {
     image: string;
   };
   alreadyLiked: boolean;
-  alreadyPosted: string
 }
 
-const LikeButton = ({ userId, post, alreadyLiked, alreadyPosted }: IProps) => {
+const LikeButton = ({ userId, post, alreadyLiked }: IProps) => {
 
-  console.log(alreadyPosted);
 
   const handleLike = async (like: boolean) => {
     const { data } = await axios.put(`${BASE_URL}/api/like`, {
       userId: userId,
       post: post,
       like: alreadyLiked,
-      alreadyPosted: alreadyPosted
     })
   }
 

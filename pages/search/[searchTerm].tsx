@@ -18,15 +18,9 @@ interface IProps {
   albums: Like[];
   songs: Like[];
   artists: Like[];
-  likes: {
-    _id: string;
-    name: string;
-    type: string;
-    image: string;
-  }[]
 }
 
-const Search = ({ albums, songs, artists, likes }: IProps) => {
+const Search = ({ albums, songs, artists }: IProps) => {
   const [following, setFollowing] = useState(true);
   const [tab, setTab] = useState("song");
   const router = useRouter();
@@ -42,22 +36,6 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
     user.userName.toLowerCase().includes(searchTerm.toLowerCase())
   ); 
 
-  const checkIfAlreadyPosted = (post: any) => {
-    let alreadyCreated = ''
-    const filteredLikes = likes.filter((like) => like.image === post.image);
-    if (filteredLikes.length > 0) {
-      console.log(filteredLikes)
-    }
-    if(filteredLikes.length > 0) {
-      filteredLikes.forEach((like) => {
-        if (post.type === like.type && post.name === like.name) {
-          alreadyCreated = like._id
-        }
-      })
-    }
-
-    return alreadyCreated
-  }
 
   return (
     <div className="w-full">
@@ -142,31 +120,25 @@ const Search = ({ albums, songs, artists, likes }: IProps) => {
 
       {tab === "song" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {songs.map((song: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(song);
-
-            return <SongCard post={song} alreadyPosted={alreadyCreated} key={idx} />
-          })}
+          {songs.map((song: Like, idx: number) => (
+            <SongCard post={song} key={idx} />
+          ))}
         </div>
       )}
 
       {tab === "artist" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {artists.map((artist: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(artist);
-
-            return <ArtistCard post={artist} alreadyPosted={alreadyCreated} key={idx} />
-          })}
+          {artists.map((artist: Like, idx: number) => (
+            <ArtistCard post={artist} key={idx} />
+          ))}
         </div>
       )}
 
       {tab === "album" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {albums.map((album: Like, idx: number) => {
-            const alreadyCreated = checkIfAlreadyPosted(album)
-
-            return <AlbumCard post={album} alreadyPosted={alreadyCreated} key={idx} />
-          })}
+          {albums.map((album: Like, idx: number) => (
+            <AlbumCard post={album} key={idx} />
+          ))}
         </div>
       )}
 
@@ -184,7 +156,6 @@ export const getServerSideProps = async ({
 
   return {
     props: {
-      likes: res.data.likes || null,
       artists: res.data.artists || null,
       albums: res.data.albums || null,
       songs: res.data.tracks || null,

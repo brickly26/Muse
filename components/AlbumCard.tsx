@@ -10,20 +10,10 @@ interface IProps {
     name: string;
     by: string[];
   };
-  alreadyPosted: string
 }
 
-const AlbumCard = ({ post, alreadyPosted }: IProps) => {
+const AlbumCard = ({ post }: IProps) => {
   const [error, setError] = useState(false);
-  const [alreadyLiked, setAlreadyLiked] = useState(false);
-  const [checkIfLiked, setCheckIfLiked] = useState(false);
-
-  console.log(alreadyPosted)
-
-  // if(alreadyPosted.length > 0) {
-  //   setCheckIfLiked(true)
-  // }
-
 
   const musicPic = 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp';
   

@@ -15,10 +15,9 @@ interface IProps {
     type: string;
     image: string;
   };
-  alreadyPosted: string
 }
 
-const ArtistCard = ({ post, alreadyPosted }: IProps) => {
+const ArtistCard = ({ post }: IProps) => {
   const [error, setError] = useState(false);
   const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
@@ -36,9 +35,7 @@ const ArtistCard = ({ post, alreadyPosted }: IProps) => {
   }
 
   useEffect(() => {
-    if(alreadyPosted.length > 0) {
       checkIfUserLiked()
-    }
   }, [])
 
   const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -64,8 +61,7 @@ const ArtistCard = ({ post, alreadyPosted }: IProps) => {
         </div>
         <div className="flex justify-end mr-5 items-center flex-1">
           {userProfile && (
-            <LikeButton 
-              alreadyPosted={alreadyPosted}
+            <LikeButton
               alreadyLiked={alreadyLiked}
               userId={userProfile._id}
               post={post}
