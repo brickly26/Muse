@@ -11,7 +11,7 @@ export const singleUserQuery = (userId: string | string[]) => {
 };
 
 export const userLikesQuery = (userId: string | string[]) => {
-  const query = `*[_type == "like" && likedBy == '${userId}']{
+  const query = `*[_type == "like"  && likedBy._ref == '${userId}']{
     name,
     _id,
     image,

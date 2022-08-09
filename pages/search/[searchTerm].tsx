@@ -41,8 +41,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
     setUser(userProfile)
     if(user) {
       fetchUserLikes(user._id);
-      console.log(user);
-      console.log(userLikes)
     }
   }, [user])
 
@@ -153,8 +151,14 @@ const Search = ({ albums, songs, artists }: IProps) => {
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
           {artists.map((artist: Like, idx: number) => {
             const alreadyLikedId = checkIfAlreadyLiked(artist);
+            let liked = false
 
-            return <ArtistCard post={artist} alreadyLikedId={alreadyLikedId} key={idx} />
+            if(alreadyLikedId.length > 0) {
+              artist._id = alreadyLikedId
+              liked = true
+            }
+
+            return <ArtistCard post={artist} alreadyLiked={liked} key={idx} />
           })}
         </div>
       )}

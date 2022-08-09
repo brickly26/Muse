@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from 'next/link';
 import Image from 'next/image';
-import { BsHeartFill } from 'react-icons/bs'
 
 import useAuthStore from "../store/authStore";
 import LikeButton from './LikeButton'
@@ -15,31 +14,12 @@ interface IProps {
     type: string;
     image: string;
   };
-  alreadyLiked: string;
+  alreadyLiked: boolean;
 }
 
 const ArtistCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
-  // const [alreadyLiked, setAlreadyLiked] = useState(false);
   const { userProfile }: any = useAuthStore();
-
-  const checkIfUserLiked = async () => {
-    const { data } = await axios.get(`${BASE_URL}/api/user/${userProfile._id}`);
-
-    if(!data[0].likes) {
-      data[0]?.likes?.forEach((like: any) => {
-        if (post._id === like._ref) {
-          // setAlreadyLiked(true)
-        }
-      })
-    }
-  }
-
-  useEffect(() => {
-    if(userProfile) {
-      checkIfUserLiked()
-    }
-  }, [])
 
   const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
 
@@ -65,9 +45,7 @@ const ArtistCard = ({ post, alreadyLiked }: IProps) => {
         <div className="flex justify-end mr-5 items-center flex-1">
           {userProfile && (
             <LikeButton
-              // setAlreadyLiked={setAlreadyLiked}
-              // alreadyLiked={alreadyLiked}
-              userId={userProfile._id}
+              alreadyLiked={alreadyLiked}
               post={post}
             />
           )}

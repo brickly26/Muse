@@ -9,8 +9,6 @@ export default async function handler(
   if (req.method === "PUT") {
     const { userId, post, like } = req.body;
 
-    console.log(like)
-
     if(!like) {
       delete post._id;
       post._type = "like";
@@ -19,13 +17,7 @@ export default async function handler(
         _ref: userId
       }
 
-      console.log('1');
-
       const newLike = await client.create(post);
-
-      console.log('2');
-
-      console.log(newLike)
 
       await client.patch(userId)
         .setIfMissing({ likes: [] })

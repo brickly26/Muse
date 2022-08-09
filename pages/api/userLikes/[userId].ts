@@ -7,8 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { userId } = req.query
 
     const data = await client.fetch(userLikesQuery(userId));
-
-    console.log(data)
     
     res.status(200).json(data);
   }
