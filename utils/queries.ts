@@ -24,7 +24,7 @@ export const profileUserQuery = (userId: string | string[]) => {
 };
 
 export const userLikesQuery = (userId: string | string[]) => {
-  const query = `*[_type == "user"  && likedBy._ref == '${userId}']{
+  const query = `*[_type == "like"  && likedBy._ref == '${userId}']{
     name,
     _id,
     image,
@@ -50,7 +50,11 @@ export const allLikesQuery = () => {
     image,
     type,
     by[],
-    likedBy->
+    likedBy->{
+      image,
+      _id,
+      userName
+    }
   }`;
 
   return query;

@@ -20,12 +20,14 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   }
 
   addUser(user);
-  fetchUserFollowers(user._id)
+  fetchUserFollowers(user._id);
+  fetchUserLikes(user._id);
   await axios.post(`${BASE_URL}/api/auth`, user);
   router.push('/')
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
+  console.log('checking', userLikes)
   let alreadyLikedId = ''
   const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
   if(filteredLikes.length > 0) {
@@ -39,9 +41,7 @@ export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
   return alreadyLikedId
 }
 
-export const checkIfAlreadyFollowing = (user: any) => {
-  const { userFollowers } = useAuthStore();
-  console.log('1', userFollowers);
+export const checkIfAlreadyFollowing = (user: any, userFollowers: any) => {
   const filteredFollowing = userFollowers.filter((following: any) => user._id === following._id)
 
   if(filteredFollowing.length > 0) {

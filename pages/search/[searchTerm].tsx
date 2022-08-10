@@ -146,6 +146,8 @@ const Search = ({ albums, songs, artists }: IProps) => {
             const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
             let liked = false
 
+            // console.log(`${artist.name}`,alreadyLikedId);
+
             if(alreadyLikedId.length > 0) {
               artist._id = alreadyLikedId
               liked = true

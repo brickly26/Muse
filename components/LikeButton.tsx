@@ -19,7 +19,7 @@ interface IProps {
 const LikeButton = ({ alreadyLiked, post }: IProps) => {
   const [liked, setLiked] = useState(alreadyLiked);
   const [updatingPost, setUpdatingPost] = useState(post);
-  const { userProfile }: any = useAuthStore();
+  const { userProfile, fetchUserLikes }: any = useAuthStore();
 
   const handleLike = async () => {
     const response = await axios.put(`${BASE_URL}/api/like`, {
@@ -35,6 +35,7 @@ const LikeButton = ({ alreadyLiked, post }: IProps) => {
       setLiked(false);
       setUpdatingPost(post)
     }
+    fetchUserLikes(userProfile._id)
   }
 
   return (

@@ -20,10 +20,6 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
 
-
-  console.log('song',post)
-
-
   const musicPic =
     "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 

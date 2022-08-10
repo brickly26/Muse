@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 import axios from 'axios';
-import { BASE_URL } from '../../utils';
+import { BASE_URL, checkIfAlreadyFollowing } from '../../utils';
 import { Like, IUser } from '../../types'
 import { checkIfAlreadyLiked } from "../../utils";
 import SongCard from '../../components/SongCard';
@@ -11,13 +11,14 @@ import ArtistCard from '../../components/ArtistCard';
 import AlbumCard from '../../components/AlbumCard';
 import NoResults from '../../components/NoResults';
 import useAuthStore from '../../store/authStore';
+import UserBadge from '../../components/UserBadge';
 
 interface IProps {
   user: any
 }
 
 const Profile = ({ user }: IProps ) => {
-  const { userLikes, userProfile, fetchUserLikes } = useAuthStore();
+  const { userLikes, userProfile, fetchUserLikes, userFollowers } = useAuthStore();
   const [currUser, setUser] = useState(userProfile)
   const [tab, setTab] = useState('likes');
 
@@ -87,58 +88,6 @@ const Profile = ({ user }: IProps ) => {
         </p>
       </div>
 
-      {/* {tab === "following" && (
-        <div className="md:mt-16">
-          {searchedAccounts.length > 0 ? (
-            searchedAccounts.map((user: IUser, idx: number) => (
-              <Link href={`/profile/${user._id}`} key={idx}>
-                <div className="flex items-center justify-between gap-3 hover:bg-primary bg-gray2 mb-4 rounded-lg">
-                  <div className="flex items-center">
-                    <div className="m-3">
-                      <Image
-                        src={user.image}
-                        width={100}
-                        height={100}
-                        className="rounded-full"
-                        alt="profile photo"
-                      />
-                    </div>
-
-                    <div className="ml-5">
-                      <p className="flex gap-1 items-center text-xl font-bold capitalize mb-3">
-                        {user.userName}
-                        <GoVerified className="text-[#1fb954]" />
-                      </p>
-                      <p className="lowercase text-gray-400 text-md">
-                        {user.userName.replaceAll(" ", "")}
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    {!following ? (
-                      <button className="flex">
-                        <RiUserFollowFill />
-                        <p>Follow</p>
-                      </button>
-                    ) : (
-                      <button className="">
-                        <RiUserUnfollowFill />
-                        <p>Follow</p>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <NoResults
-              text={`No account results for ${searchTerm}`}
-              music={false}
-            />
-          )}
-        </div>
-      )} */}
-
       {tab === "likes" && (
         user.likes.length > 0 ? (
           user.likes.map((like: any, idx: number) => {
@@ -146,10 +95,14 @@ const Profile = ({ user }: IProps ) => {
             let liked = false;
             const alreadyLikedId = checkIfAlreadyLiked(like, userLikes);
 
+            console.log('1',alreadyLikedId);
+
             if(alreadyLikedId.length > 0) {
               like._id = alreadyLikedId
               liked = true
             }
+
+            console.log(liked)
 
             if (type === 'song') {
               return (
@@ -164,15 +117,47 @@ const Profile = ({ user }: IProps ) => {
                 </div>
               )
             } else if (type === 'album') {
-              <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-                <AlbumCard post={like} alreadyLiked={liked} key={idx} />
-              </div>
+              return (
+                <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+                  <AlbumCard post={like} alreadyLiked={liked} key={idx} />
+                </div>
+              )
             }
           })
         ) : (
           <NoResults text={'No Likes'} />
         )
       )}
+
+      {tab === "followers" && (
+        user.followers.length > 0 ? (
+          user.followers.map((user: any, idx: number) => {
+            let followed
+            if (userProfile) {
+              followed = checkIfAlreadyFollowing(user._id, userFollowers);
+            }
+
+            return <UserBadge user={user} location='search' following={followed} />
+          })
+        ) : (
+          <NoResults text={'No Likes'} />
+        )
+      )}  
+
+      {tab === "following" && (
+        user.following.length > 0 ? (
+          user.following.map((user: any, idx: number) => {
+            let followed
+            if (userProfile) {
+              followed = checkIfAlreadyFollowing(user._id, userFollowers);
+            }
+
+            return <UserBadge user={user} location='search' following={followed} />
+          })
+        ) : (
+          <NoResults text={'No Likes'} />
+        )
+      )}  
     </div>
   )
 }
