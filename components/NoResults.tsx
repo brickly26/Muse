@@ -3,7 +3,7 @@ import { TbMusicOff } from 'react-icons/tb';
 
 interface IProps {
   text: string;
-  music: boolean;
+  music?: boolean | null;
 }
 
 const NoResults = ({ text, music }: IProps) => {

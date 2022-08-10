@@ -1,77 +1,93 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { GoVerified } from 'react-icons/go';
 import axios from 'axios';
 import { BASE_URL } from '../../utils';
 import { Like, IUser } from '../../types'
+import { checkIfAlreadyLiked } from "../../utils";
 import SongCard from '../../components/SongCard';
+import ArtistCard from '../../components/ArtistCard';
+import AlbumCard from '../../components/AlbumCard';
+import NoResults from '../../components/NoResults';
+import useAuthStore from '../../store/authStore';
 
 interface IProps {
-  user: {
-    name: string;
-    image: string;
-    likes: Like;
-    following: IUser[]
-    followers: IUser[]
-  }
+  user: any
 }
 
-const Profile = ({ user }: IProps) => {
+const Profile = ({ user }: IProps ) => {
+  const { userLikes, userProfile, fetchUserLikes } = useAuthStore();
+  const [currUser, setUser] = useState(userProfile)
   const [tab, setTab] = useState('likes');
-  
+
+  useEffect(() => {
+    if(currUser) {
+      fetchUserLikes(user._id);
+    }
+  }, [currUser])
+
+  const likesTab = tab === "likes" ? "border-b-2 border-white" : "text-gray3";
+  const followingTab = tab === "following" ? "border-b-2 border-white" : "text-gray3";
+  const followersTab = tab === "followers" ? "border-b-2 border-white" : "text-gray3";
 
   return (
     <div className="w-full">
-      <div className="flex gap-6 md:gap-10 mb-4 bg-white w-full">
-        <div className="w-16 h-16 md:w-32 md:h-32">
-          <Image
-            src={user.image}
-            width={120}
-            height={120}
-            className="rounded-full"
-            alt="user profile"
-            layout="responsive"
-          />
+      <div className="mb-5">
+          <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
+            <div className="md:w-16 md:h-16 w-10 h-10">
+              <Link href={`/profile/${user._id}`}>
+                <div className="m-0 p-0">
+                  <Image
+                    width={62}
+                    height={62}
+                    className="rounded-full"
+                    src={user.image}
+                    alt="profile photo"
+                    layout="responsive"
+                  />
+                </div>
+              </Link>
+            </div>
+            <div>
+              <Link href={`/`}>
+                <div className="flex items-center gap-2">
+                  <p className="flex gap-2 text-lg items-center font-bold">
+                    {user.userName}
+                    <GoVerified className="text-[#1FB954] text-md" />
+                  </p>
+                  <p className="capitalize font-medium text-xs text-gray-500 hidden md:block">
+                    {user.userName}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
-
-        <div className="flex flex-col justify-center">
-          <p className="md:text-2xl tracking-wider flex gap-1 items-center justify-center text-md font-bold text-primary lowercase">
-            {user.userName.replaceAll(" ", "")}
-            <GoVerified className="text-blue-400" />
-          </p>
-          <p className="capitalize md:text-xl text-gray-400 text-xs">{user.userName}</p>
-        </div>
-      </div>
 
 
       <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
         <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${accountTab}`}
-          onClick={() => setTab("account")}
+          className={`text-xl font-semibold cursor-pointer mt-2 ${likesTab}`}
+          onClick={() => setTab("likes")}
         >
-          Accounts
+          Likes
         </p>
         <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${songTab}`}
-          onClick={() => setTab("song")}
+          className={`text-xl font-semibold cursor-pointer mt-2 ${followersTab}`}
+          onClick={() => setTab("followers")}
         >
-          Tracks
+          Followers
         </p>
         <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${artistTab}`}
-          onClick={() => setTab("artist")}
+          className={`text-xl font-semibold cursor-pointer mt-2 ${followingTab}`}
+          onClick={() => setTab("following")}
         >
-          Artists
-        </p>
-        <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${albumTab}`}
-          onClick={() => setTab("album")}
-        >
-          Albums
+          Following
         </p>
       </div>
 
-      {tab === "following" && (
+      {/* {tab === "following" && (
         <div className="md:mt-16">
           {searchedAccounts.length > 0 ? (
             searchedAccounts.map((user: IUser, idx: number) => (
@@ -121,55 +137,42 @@ const Profile = ({ user }: IProps) => {
             />
           )}
         </div>
-      )}
+      )} */}
 
       {tab === "likes" && (
         user.likes.length > 0 ? (
-          user.likes.map((like: Like, idx: number) => {
+          user.likes.map((like: any, idx: number) => {
             const type = like.type
+            let liked = false;
+            const alreadyLikedId = checkIfAlreadyLiked(like, userLikes);
+
+            if(alreadyLikedId.length > 0) {
+              like._id = alreadyLikedId
+              liked = true
+            }
 
             if (type === 'song') {
               return (
                 <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-                  <SongCard post={like} key={idx} />
+                  <SongCard post={like} alreadyLiked={liked} key={idx} />
+                </div>
+              )
+            } else if (type === 'artist') {
+              return (
+                <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+                  <ArtistCard post={like} alreadyLiked={liked} key={idx} />
                 </div>
               )
             } else if (type === 'album') {
-              return (
-
-              )
+              <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+                <AlbumCard post={like} alreadyLiked={liked} key={idx} />
+              </div>
             }
           })
         ) : (
-
+          <NoResults text={'No Likes'} />
         )
       )}
-
-      {tab === "artist" && (
-        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {artists.map((artist: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(artist);
-            let liked = false
-
-            if(alreadyLikedId.length > 0) {
-              artist._id = alreadyLikedId
-              liked = true
-            }
-
-            return <ArtistCard post={artist} alreadyLiked={liked} key={idx} />
-          })}
-        </div>
-      )}
-
-      {tab === "album" && (
-        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-          {albums.map((album: Like, idx: number) => (
-            <AlbumCard post={album} key={idx} />
-          ))}
-        </div>
-      )}
-
-
     </div>
   )
 }
@@ -179,12 +182,10 @@ export const getServerSideProps = async ({
 }: {
   params: { id: string };
 }) => {
-  const res = await axios.get(`${BASE_URL}/profile/${id}`);
-
-  console.log(res)
+  const res = await axios.get(`${BASE_URL}/api/profile/${id}`);
 
   return {
-    props: { user: res.data }
+    props: { user: res.data[0] }
   }
 };
 

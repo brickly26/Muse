@@ -1,13 +1,41 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import UserBadge from "./UserBadge";
 import { GoVerified } from "react-icons/go";
 import { BsHeartFill } from "react-icons/Bs";
 
+
+import UserBadge from "./UserBadge";
 import AlbumCard from "./AlbumCard";
 import ArtistCard from "./ArtistCard";
 import SongCard from "./SongCard";
+import { checkIfAlreadyFollowing } from "../utils";
+import { resourceLimits } from "worker_threads";
+
+const results = [
+  {
+    _createdAt: "2022-08-09T19:51:43Z",
+    _id: "101046857955199823065",
+    _rev: "bH1tSrYXMMh2n1OP38aS14",
+    _type: "user",
+    _updatedAt: "2022-08-09T19:51:43Z",
+    followers: [],
+    following: [],
+    image: "https://lh3.googleusercontent.com/a-/AFdZucq3yc7NLR69BBDzG9ju1eHKBuYLhFyUeqx5ccTpQg=s96-c",
+    userName: "Burak Aksu"
+  },
+  {
+    _createdAt: "2022-08-09T19:56:18Z",
+    _id: "106978780731036577572",
+    _rev: "gGRdwlUj1n7PrTHHfhhfjB",
+    _type: "user",
+    _updatedAt: "2022-08-09T19:56:18Z",
+    followers: [],
+    following: [],
+    image: "https://lh3.googleusercontent.com/a/AItbvmmCZFtm5CY70dGCmhPW31pgdM8HJ3RWPejoMnr-=s96-c",
+    userName: "Burak Aksu"
+  }
+]
 
 const PostCard = () => {
   const rocky = {
@@ -54,41 +82,18 @@ const PostCard = () => {
 
   return (
     <>
+      {results.map((user: any, idx: number) => {
+        const following = checkIfAlreadyFollowing(user._id)
+
+
+        return <UserBadge location="search" user={user} following={following} />
+      })}
+
       {/* rocky album */}
 
       <div className="flex flex-col border-b-2 border-gray3 pb-6">
-        <div className="mb-5">
-          <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
-            <div className="md:w-16 md:h-16 w-10 h-10">
-              <Link href={`/profile/${rocky.likedBy._id}`}>
-                <div className="m-0 p-0">
-                  <Image
-                    width={62}
-                    height={62}
-                    className="rounded-full"
-                    src={rocky.likedBy.image}
-                    alt="profile photo"
-                    layout="responsive"
-                  />
-                </div>
-              </Link>
-            </div>
-            <div>
-              <Link href={`/`}>
-                <div className="flex items-center gap-2">
-                  <p className="flex gap-2 text-lg items-center font-bold">
-                    {rocky.likedBy.userName}
-                    <GoVerified className="text-[#1FB954] text-md" />
-                  </p>
-                  <p className="capitalize font-medium text-xs text-gray-500 hidden md:block">
-                    {rocky.likedBy.userName}
-                  </p>
-                </div>
-              </Link>
-              <p className="text-sm mt-3">{`Liked this ${rocky.type} a few seconds ago`}</p>
-            </div>
-          </div>
-        </div>
+        
+        <UserBadge location="feed" user={results[0]} post={rocky} />
 
         {rocky.type === "album" && <AlbumCard post={rocky} />}
       </div>

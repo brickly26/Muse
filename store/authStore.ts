@@ -7,6 +7,7 @@ const authStore = (set: any) => ({
   userProfile: null,
   allUsers: [],
   userLikes: [],
+  userFollowers: [],
   
   addUser: (user: any) => set({ userProfile: user }),
   removeUser: () => set({ userProfile: null }),
@@ -24,6 +25,14 @@ const authStore = (set: any) => ({
   },
 
   removeUserLikes: () => set({ userLikes: [] }),
+
+  fetchUserFollowers: async (userId: string) => {
+    const response = await axios.get(`${BASE_URL}/api/userFollowers/${userId}`);
+
+    set({ userFollowers: response.data});
+  },
+
+  removeUserFollowers: () => set({ userFollowers: [] }),
 });
 
 const useAuthStore = create(
