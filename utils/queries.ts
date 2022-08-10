@@ -24,7 +24,7 @@ export const profileUserQuery = (userId: string | string[]) => {
 };
 
 export const userLikesQuery = (userId: string | string[]) => {
-  const query = `*[_type == "like"  && likedBy._ref == '${userId}']{
+  const query = `*[_type == "user"  && likedBy._ref == '${userId}']{
     name,
     _id,
     image,
@@ -35,9 +35,9 @@ export const userLikesQuery = (userId: string | string[]) => {
   return query;
 };
 
-export const userFollowersQuery = (userId: string | string[]) => {
-  const query = `*[_type == "user"]{
-    followers[]->
+export const userFollowingQuery = (userId: string | string[]) => {
+  const query = `*[_type == 'user' && _id == ${userId}]{
+    following[]->
   }`;
 
   return query;
@@ -45,6 +45,19 @@ export const userFollowersQuery = (userId: string | string[]) => {
 
 export const allLikesQuery = () => {
   const query = `*[_type == "like"]{
+    name,
+    _id,
+    image,
+    type,
+    by[],
+    likedBy->
+  }`;
+
+  return query;
+};
+
+export const followingLikesQuery = (userId: string | string[]) => {
+  const query = `*[_type == "like" && likedBy._ref in ]{
     name,
     _id,
     image,

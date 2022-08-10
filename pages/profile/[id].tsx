@@ -10,19 +10,26 @@ import SongCard from '../../components/SongCard';
 import ArtistCard from '../../components/ArtistCard';
 import AlbumCard from '../../components/AlbumCard';
 import NoResults from '../../components/NoResults';
+import useAuthStore from '../../store/authStore';
 
 interface IProps {
   user: any
 }
 
 const Profile = ({ user }: IProps ) => {
+  const { userLikes, userProfile, fetchUserLikes } = useAuthStore();
+  const [currUser, setUser] = useState(userProfile)
   const [tab, setTab] = useState('likes');
+
+  useEffect(() => {
+    if(currUser) {
+      fetchUserLikes(user._id);
+    }
+  }, [currUser])
 
   const likesTab = tab === "likes" ? "border-b-2 border-white" : "text-gray3";
   const followingTab = tab === "following" ? "border-b-2 border-white" : "text-gray3";
   const followersTab = tab === "followers" ? "border-b-2 border-white" : "text-gray3";
-
-  console.log(user)
 
   return (
     <div className="w-full">
@@ -137,7 +144,7 @@ const Profile = ({ user }: IProps ) => {
           user.likes.map((like: any, idx: number) => {
             const type = like.type
             let liked = false;
-            const alreadyLikedId = checkIfAlreadyLiked(like);
+            const alreadyLikedId = checkIfAlreadyLiked(like, userLikes);
 
             if(alreadyLikedId.length > 0) {
               like._id = alreadyLikedId

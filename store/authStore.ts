@@ -32,7 +32,7 @@ const authStore = (set: any) => ({
     set({ userFollowers: response.data});
   },
 
-  removerUserFollowers: () => set({ userFollowers: [] }),
+  removeUserFollowers: () => set({ userFollowers: [] }),
 });
 
 const useAuthStore = create(

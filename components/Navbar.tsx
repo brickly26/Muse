@@ -13,8 +13,7 @@ import { IUser } from "../types";
 import { createOrGetUser } from '../utils';
 
 const Navbar = () => {
-  const [isShowLogin, setIsShowLogin] = useState<boolean>(false);
-  const { userProfile, removeUser, addUser, removeUserLikes, fetchUserLikes, userLikes } = useAuthStore();
+  const { userProfile, removeUser, addUser, removeUserLikes, fetchUserLikes, fetchUserFollowers, removeUserFollowers } = useAuthStore();
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
@@ -87,6 +86,7 @@ const Navbar = () => {
               googleLogout();
               removeUser();
               removeUserLikes();
+              removeUserFollowers();
             }}
           >
             <FiLogOut color="#1fb954" fontSize={21} />
@@ -94,7 +94,7 @@ const Navbar = () => {
         </div>
       ) : (
         <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, router)}
+            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, router, fetchUserFollowers)}
             onError={() => console.log('Error')}
         />
       )}

@@ -5,7 +5,7 @@ import useAuthStore from '../store/authStore';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, router: any) => {
+export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, router: any, fetchUserFollowers: any) => {
   const decoded: { name: string, picture: string, sub: string} = jwt_decode(response.credential);
 
   const { name, picture, sub } = decoded;
@@ -20,12 +20,12 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   }
 
   addUser(user);
+  fetchUserFollowers(user._id)
   await axios.post(`${BASE_URL}/api/auth`, user);
   router.push('/')
 };
 
-export const checkIfAlreadyLiked = (post: any) => {
-  const { userLikes } = useAuthStore();
+export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
   let alreadyLikedId = ''
   const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
   if(filteredLikes.length > 0) {
@@ -41,6 +41,7 @@ export const checkIfAlreadyLiked = (post: any) => {
 
 export const checkIfAlreadyFollowing = (user: any) => {
   const { userFollowers } = useAuthStore();
+  console.log('1', userFollowers);
   const filteredFollowing = userFollowers.filter((following: any) => user._id === following._id)
 
   if(filteredFollowing.length > 0) {

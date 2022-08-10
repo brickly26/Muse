@@ -22,11 +22,11 @@ interface IProps {
 }
 
 const Search = ({ albums, songs, artists }: IProps) => {
-  const [user, setUser] = useState<IUser | null>()
+  const { allUsers, fetchUserLikes, userProfile, userLikes } = useAuthStore();
+  const [user, setUser] = useState<IUser | null>(userProfile)
   const [tab, setTab] = useState("song");
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const { allUsers, fetchUserLikes, userProfile } = useAuthStore();
 
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
@@ -38,7 +38,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
   ); 
 
   useEffect(() => {
-    setUser(userProfile)
     if(user) {
       fetchUserLikes(user._id);
     }
@@ -128,7 +127,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
       {tab === "song" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
           {songs.map((song: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(song);
+            const alreadyLikedId = checkIfAlreadyLiked(song, userLikes);
             let liked = false
 
             if(alreadyLikedId.length > 0) {
@@ -144,7 +143,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
       {tab === "artist" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
           {artists.map((artist: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(artist);
+            const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
             let liked = false
 
             if(alreadyLikedId.length > 0) {
@@ -160,7 +159,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
       {tab === "album" && (
         <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
           {albums.map((album: Like, idx: number) => {
-            const alreadyLikedId = checkIfAlreadyLiked(album);
+            const alreadyLikedId = checkIfAlreadyLiked(album, userLikes);
             let liked = false
 
             if(alreadyLikedId.length > 0) {

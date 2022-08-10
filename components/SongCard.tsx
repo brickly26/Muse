@@ -20,6 +20,10 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
 
+
+  console.log('song',post)
+
+
   const musicPic =
     "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
@@ -41,7 +45,7 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
             <div className="flex-3">
               <p className="text-xl text-white mb-3">{post.name}</p>
               <p className="text-md text-gray-400 hover:underline">
-                {post?.by.map((artist) => `${artist}, `)}
+                {post.by.length === 1 ? post.by[0] : post?.by.toString().replaceAll(',', ', ')}
               </p>
             </div>
           </div>

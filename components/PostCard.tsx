@@ -4,6 +4,7 @@ import Image from "next/image";
 import { GoVerified } from "react-icons/go";
 import { BsHeartFill } from "react-icons/Bs";
 
+
 import UserBadge from "./UserBadge";
 import AlbumCard from "./AlbumCard";
 import ArtistCard from "./ArtistCard";
@@ -83,6 +84,7 @@ const PostCard = () => {
     <>
       {results.map((user: any, idx: number) => {
         const following = checkIfAlreadyFollowing(user._id)
+
 
         return <UserBadge location="search" user={user} following={following} />
       })}
