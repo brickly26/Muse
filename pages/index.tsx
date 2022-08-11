@@ -17,13 +17,16 @@ interface IProps {
 const Home = ({ posts }: IProps) => {
   const [renderedPosts, setRenderedPosts] = useState(posts);
   const { userProfile, userLikes } = useAuthStore();
-  const [user, setUser] = useState(userProfile)
+  const [user, setUser] = useState(userProfile);
 
   useEffect(() => {
     if(user) {
       getFollowingLikes(user._id)
+    } else {
+      setRenderedPosts(posts)
     }
-  }, [user])
+    setUser(userProfile)
+  }, [userProfile])
 
   const getFollowingLikes = async (userId: any) => {
     const response = await axios.get(`${BASE_URL}/api/feed/${userId}`)

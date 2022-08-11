@@ -47,15 +47,15 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
           </div>
         </div>
         {userProfile && (
+          <div className="mr-10">
             <LikeButton
               alreadyLiked={alreadyLiked}
               post={post}
             />
+          </div>
           )}
         {false && (
-          <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954] mr-10">
             <BsHeartFill />
-          </div>
         )}
       </div>
     </Link>
