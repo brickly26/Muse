@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
 
-import { BASE_URL } from "../../utils";
+import { BASE_URL, checkIfAlreadyFollowing } from "../../utils";
 import { IUser, Like } from "../../types";
 import useAuthStore from "../../store/authStore";
 import { GoVerified } from "react-icons/go";
@@ -14,6 +14,7 @@ import NoResults from "../../components/NoResults";
 import SongCard from "../../components/SongCard";
 import ArtistCard from "../../components/ArtistCard";
 import AlbumCard from "../../components/AlbumCard";
+import UserBadge from "../../components/UserBadge";
 
 interface IProps {
   albums: Like[];
@@ -22,7 +23,7 @@ interface IProps {
 }
 
 const Search = ({ albums, songs, artists }: IProps) => {
-  const { allUsers, fetchUserLikes, userProfile, userLikes } = useAuthStore();
+  const { allUsers, fetchUserLikes, userProfile, userLikes, userFollowers } = useAuthStore();
   const [user, setUser] = useState<IUser | null>(userProfile)
   const [tab, setTab] = useState("song");
   const router = useRouter();
@@ -75,46 +76,12 @@ const Search = ({ albums, songs, artists }: IProps) => {
       {tab === "account" && (
         <div className="md:mt-16">
           {searchedAccounts.length > 0 ? (
-            searchedAccounts.map((user: IUser, idx: number) => (
-              <Link href={`/profile/${user._id}`} key={idx}>
-                <div className="flex items-center justify-between gap-3 hover:bg-primary bg-gray2 mb-4 rounded-lg">
-                  <div className="flex items-center">
-                    <div className="m-3">
-                      <Image
-                        src={user.image}
-                        width={100}
-                        height={100}
-                        className="rounded-full"
-                        alt="profile photo"
-                      />
-                    </div>
+            searchedAccounts.map((user: IUser, idx: number) => {
+              console.log(userFollowers)
+              const followed = checkIfAlreadyFollowing(userProfile._id, userFollowers)
 
-                    <div className="ml-5">
-                      <p className="flex gap-1 items-center text-xl font-bold capitalize mb-3">
-                        {user.userName}
-                        <GoVerified className="text-[#1fb954]" />
-                      </p>
-                      <p className="lowercase text-gray-400 text-md">
-                        {user.userName.replaceAll(" ", "")}
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    {!following ? (
-                      <button className="flex">
-                        <RiUserFollowFill />
-                        <p>Follow</p>
-                      </button>
-                    ) : (
-                      <button className="">
-                        <RiUserUnfollowFill />
-                        <p>Follow</p>
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))
+              return <UserBadge user={user} location="search" following={followed} />
+            })
           ) : (
             <NoResults
               text={`No account results for ${searchTerm}`}
@@ -145,8 +112,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
           {artists.map((artist: Like, idx: number) => {
             const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
             let liked = false
-
-            // console.log(`${artist.name}`,alreadyLikedId);
 
             if(alreadyLikedId.length > 0) {
               artist._id = alreadyLikedId

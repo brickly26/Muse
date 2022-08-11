@@ -27,7 +27,6 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
-  console.log('checking', userLikes)
   let alreadyLikedId = ''
   const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
   if(filteredLikes.length > 0) {

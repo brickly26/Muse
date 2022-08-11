@@ -19,8 +19,6 @@ const Home = ({ posts }: IProps) => {
   const { userProfile, userLikes } = useAuthStore();
   const [user, setUser] = useState(userProfile)
 
-  console.log(posts)
-
   useEffect(() => {
     if(user) {
       getFollowingLikes(user._id)

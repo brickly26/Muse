@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const FollowButton = ({ following, userId, location }: IProps) => {
-  const { userProfile }: any = useAuthStore();
+  const { userProfile, fetchUserFollowers }: any = useAuthStore();
   const [followed, setFollowed] = useState(following)
 
   const handleFollow = async () => {
@@ -21,7 +21,7 @@ const FollowButton = ({ following, userId, location }: IProps) => {
       follow: followed
     })
 
-    console.log(response.data)
+    fetchUserFollowers(userProfile._id);
 
     followed ? setFollowed(false) : setFollowed(true)
   }
