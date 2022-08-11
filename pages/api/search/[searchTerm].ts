@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { client } from '../../../utils/client';
 import axios from 'axios';
-import { userLikesQuery } from '../../../utils/queries';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if(req.method === 'GET') {
@@ -12,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       url: 'https://spotify23.p.rapidapi.com/search/',
       params: {q: searchTerm, type: 'multi', offset: '0', limit: '10', numberOfTopResults: '5'},
       headers: {
-        'X-RapidAPI-Key': '86b7532091msh9b196d9d3f89ea8p1208abjsnfc4f668a0342',
+        'X-RapidAPI-Key': '400be26774msh66cdea547d51b5ep114199jsn7c36fba4ee9b',
         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
       }
     };

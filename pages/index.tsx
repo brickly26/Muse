@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import AlbumCard from '../components/AlbumCard';
 import ArtistCard from '../components/ArtistCard';
-import PostCard from '../components/PostCard';
 import SongCard from '../components/SongCard';
+import UserBadge from '../components/UserBadge';
 import useAuthStore from '../store/authStore';
 import { Like } from '../types'
 import { BASE_URL } from '../utils'
@@ -17,17 +17,16 @@ interface IProps {
 const Home = ({ posts }: IProps) => {
   const [renderedPosts, setRenderedPosts] = useState(posts);
   const { userProfile, userLikes } = useAuthStore();
-  const [user, setUser] = useState(userProfile)
-
-  // if(true) {
-  //   return <PostCard />
-  // }
+  const [user, setUser] = useState(userProfile);
 
   useEffect(() => {
     if(user) {
       getFollowingLikes(user._id)
+    } else {
+      setRenderedPosts(posts)
     }
-  }, [user])
+    setUser(userProfile)
+  }, [userProfile])
 
   const getFollowingLikes = async (userId: any) => {
     const response = await axios.get(`${BASE_URL}/api/feed/${userId}`)
@@ -52,19 +51,22 @@ const Home = ({ posts }: IProps) => {
 
         if(post.type === 'song') {
           return (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="flex flex-col border-b-2 border-gray3 pb-6">
+              <UserBadge location='feed' post={post.type} user={post.likedBy} />
               <SongCard post={post} alreadyLiked={liked} key={idx} />
             </div>
           )
         } else if (post.type === 'album') {
           return (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="flex flex-col border-b-2 border-gray3 pb-6">
+              <UserBadge location='feed' post={post.type} user={post.likedBy} />
               <AlbumCard post={post} alreadyLiked={liked} key={idx} />
             </div>
           )
         } else if (post.type === 'artist') {
           return (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="flex flex-col border-b-2 border-gray3 pb-6">
+              <UserBadge location='feed' post={post.type} user={post.likedBy} />
               <ArtistCard post={post} alreadyLiked={liked} key={idx} />
             </div>
           )

@@ -11,7 +11,7 @@ import useAuthStore from "../store/authStore";
 interface IProps {
   user: IUser | any;
   location: string;
-  post?: any;
+  post?: string | null;
   following?: boolean;
 }
 
@@ -84,7 +84,7 @@ const UserBadge = ({ user, location, post = null, following = false }: IProps) =
                 </p>
               </div>
             </Link>
-            <p className="text-sm text-neutral-500 mt-3">{`Liked this ${post.type} a few seconds ago`}</p>
+            <p className="text-sm text-neutral-500 mt-3">{`Liked this ${post} a few seconds ago`}</p>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import useAuthStore from '../store/authStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSSR, setIsSSR] = useState(true);
+  const [render, setRender] = useState('');
 
   useEffect(() => {
     setIsSSR(false)
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_API_TOKEN}`}>
       <div className='xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black'>
-        <Navbar />
+        <Navbar setRender={setRender} />
         <div className='flex gap-6 md:gap-20'>
           <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
             <Sidebar />

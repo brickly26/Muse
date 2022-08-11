@@ -6,14 +6,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if(req.method === 'GET') {
     const { id } = req.query
 
-    console.log('1:',id)
-
     const response1 = await client.fetch(userFollowingQuery(id));
 
-    console.log('2:', response1);
+    const followingArr = response1[0].following.map((user:any) => user._id)
     
-    const response = await client.fetch(followingLikesQuery(id));
+    const response = await client.fetch(followingLikesQuery(followingArr));
 
-    res.status(200).json(response1);
+    res.status(200).json(response);
   }
 }

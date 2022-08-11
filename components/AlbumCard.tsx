@@ -19,8 +19,6 @@ const AlbumCard = ({ post, alreadyLiked }: IProps) => {
   const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
 
-  console.log('albums',post)
-
   const musicPic =
     "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
@@ -44,18 +42,13 @@ const AlbumCard = ({ post, alreadyLiked }: IProps) => {
           </p>
         </div>
         {userProfile && (
+          <div className="flex justify-end mr-5 items-center flex-1">
             <LikeButton
               alreadyLiked={alreadyLiked}
               post={post}
             />
-          )}
-        {false && (
-          <div className="flex justify-end mr-5 items-center flex-1">
-            <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954]">
-              <BsHeartFill />
-            </div>
           </div>
-        )}
+          )}
       </div>
     </div>
   );
