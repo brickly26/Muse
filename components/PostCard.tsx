@@ -83,7 +83,7 @@ const PostCard = () => {
   return (
     <>
       {results.map((user: any, idx: number) => {
-        const following = checkIfAlreadyFollowing(user._id)
+        const following = checkIfAlreadyFollowing(user._id, ['sdsds'])
 
 
         return <UserBadge location="search" user={user} following={following} />
