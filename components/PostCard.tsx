@@ -12,30 +12,6 @@ import SongCard from "./SongCard";
 import { checkIfAlreadyFollowing } from "../utils";
 import { resourceLimits } from "worker_threads";
 
-const results = [
-  {
-    _createdAt: "2022-08-09T19:51:43Z",
-    _id: "101046857955199823065",
-    _rev: "bH1tSrYXMMh2n1OP38aS14",
-    _type: "user",
-    _updatedAt: "2022-08-09T19:51:43Z",
-    followers: [],
-    following: [],
-    image: "https://lh3.googleusercontent.com/a-/AFdZucq3yc7NLR69BBDzG9ju1eHKBuYLhFyUeqx5ccTpQg=s96-c",
-    userName: "Burak Aksu"
-  },
-  {
-    _createdAt: "2022-08-09T19:56:18Z",
-    _id: "106978780731036577572",
-    _rev: "gGRdwlUj1n7PrTHHfhhfjB",
-    _type: "user",
-    _updatedAt: "2022-08-09T19:56:18Z",
-    followers: [],
-    following: [],
-    image: "https://lh3.googleusercontent.com/a/AItbvmmCZFtm5CY70dGCmhPW31pgdM8HJ3RWPejoMnr-=s96-c",
-    userName: "Burak Aksu"
-  }
-]
 
 const PostCard = () => {
   const rocky = {
@@ -82,12 +58,6 @@ const PostCard = () => {
 
   return (
     <>
-      {results.map((user: any, idx: number) => {
-        const following = checkIfAlreadyFollowing(user._id, ['sdsds'])
-
-
-        return <UserBadge location="search" user={user} following={following} />
-      })}
 
       {/* rocky album */}
 
