@@ -12,7 +12,11 @@ import Logo from "../utils/muse.png";
 import { IUser } from "../types";
 import { createOrGetUser } from '../utils';
 
-const Navbar = () => {
+interface IProps  {
+  setRender: (a: string) => void
+}
+
+const Navbar = ({ setRender }: IProps) => {
   const { userProfile, removeUser, addUser, removeUserLikes, fetchUserLikes, fetchUserFollowers, removeUserFollowers } = useAuthStore();
   const [user, setUser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState('');
@@ -87,6 +91,7 @@ const Navbar = () => {
               removeUser();
               removeUserLikes();
               removeUserFollowers();
+              setRender('1');
             }}
           >
             <FiLogOut color="#1fb954" fontSize={21} />
@@ -94,7 +99,7 @@ const Navbar = () => {
         </div>
       ) : (
         <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, router, fetchUserFollowers)}
+            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, router, setRender, fetchUserFollowers)}
             onError={() => console.log('Error')}
         />
       )}

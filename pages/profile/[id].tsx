@@ -12,6 +12,8 @@ import AlbumCard from '../../components/AlbumCard';
 import NoResults from '../../components/NoResults';
 import useAuthStore from '../../store/authStore';
 import UserBadge from '../../components/UserBadge';
+import Navbar from '../../components/Navbar';
+import Sidebar from '../../components/Sidebar';
 
 interface IProps {
   user: any
@@ -21,6 +23,7 @@ const Profile = ({ user }: IProps ) => {
   const { userLikes, userProfile, fetchUserLikes, userFollowers } = useAuthStore();
   const [currUser, setUser] = useState(userProfile)
   const [tab, setTab] = useState('likes');
+  const [render, setRender] = useState('false');
 
   useEffect(() => {
     if(currUser) {
@@ -33,7 +36,14 @@ const Profile = ({ user }: IProps ) => {
   const followersTab = tab === "followers" ? "border-b-2 border-white" : "text-gray3";
 
   return (
-    <div className="w-full">
+    <div className='xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black'>
+        <Navbar setRender={setRender} />
+        <div className='flex gap-6 md:gap-20'>
+          <div className='h-[92vh] overflow-hidden xl:hover:overflow-auto'>
+            <Sidebar />
+          </div>
+          <div className='mt-4 flex flex-col gap-10 overflow-auto h-[88vh] flex-1'>
+          <div className="w-full">
       <div className="mb-5">
           <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
             <div className="md:w-16 md:h-16 w-10 h-10">
@@ -159,6 +169,9 @@ const Profile = ({ user }: IProps ) => {
         )
       )}  
     </div>
+          </div>
+        </div>
+      </div>
   )
 }
 
