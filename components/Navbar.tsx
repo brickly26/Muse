@@ -92,6 +92,7 @@ const Navbar = ({ setRender }: IProps) => {
               removeUserLikes();
               removeUserFollowers();
               setRender('1');
+              router.reload('/')
             }}
           >
             <FiLogOut color="#1fb954" fontSize={21} />

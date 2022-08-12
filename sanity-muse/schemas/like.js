@@ -29,6 +29,11 @@ export default {
       title: 'LikedBy',
       type: 'reference',
       to: [{ type: 'user' }]
+    },
+    {
+      name: 'spotifyId',
+      title: 'SpotifyId',
+      type: 'string'
     }
   ]
 }

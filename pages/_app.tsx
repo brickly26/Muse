@@ -9,7 +9,6 @@ import useAuthStore from '../store/authStore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isSSR, setIsSSR] = useState(true);
-  const [render, setRender] = useState('');
 
   useEffect(() => {
     setIsSSR(false)

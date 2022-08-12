@@ -24,7 +24,7 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   fetchUserLikes(user._id);
   setRender('2');
   await axios.post(`${BASE_URL}/api/auth`, user);
-  router.push('/')
+  router.reload('/')
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {

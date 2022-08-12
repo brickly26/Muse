@@ -25,14 +25,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: 'album',
       name: `${album.data.name}`,
       by: album.data.artists.items.map((item: any) => `${item.profile.name}`),
-      image: `${album.data.coverArt.sources[0].url}`
+      image: `${album.data.coverArt.sources[0].url}`,
+      spotifyId: `${album.data.uri.split(':')[2]}`
     }));
 
     const myArtists = artists?.items.map((artist: any) => ({
       _id: `${artist.data.uri}`,
       type: 'artist',
       name: `${artist.data.profile.name}`,
-      image: `${artist.data.visuals.avatarImage?.sources[0].url}`
+      image: `${artist.data.visuals.avatarImage?.sources[0].url}`,
+      spotifyId: `${artist.data.uri.split(':')[2]}`
     }));
 
     const myTracks = tracks?.items.map((track: any) => ({
@@ -40,7 +42,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: 'song',
       name: `${track.data.name}`,
       by: track.data.artists.items.map((item: any) => `${item.profile.name}`),
-      image: `${track.data.albumOfTrack.coverArt.sources[0].url}`
+      image: `${track.data.albumOfTrack.coverArt.sources[0].url}`,
+      spotifyId: `${track.data.id}`
     }));
 
     const response = {
