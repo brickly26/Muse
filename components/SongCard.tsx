@@ -12,6 +12,7 @@ interface IProps {
     type: string;
     image: string;
     by: string[];
+    spotifyId: string;
   };
   alreadyLiked: boolean;
 }
@@ -24,7 +25,7 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
     "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
   return (
-    <Link href={`./song/${post._id}`}>
+    <Link href={`/song/${post.spotifyId}`}>
       <div className="flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
         <div className="flex gap-2 h-full items-center">
           <div className="rounded-md lg:w-[100px] lg:h-[100px] mx-5">
@@ -47,16 +48,13 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
           </div>
         </div>
         {userProfile && (
-          <div className="mr-10">
+          <div className="mr-10 pl-10">
             <LikeButton
               alreadyLiked={alreadyLiked}
               post={post}
             />
           </div>
           )}
-        {false && (
-            <BsHeartFill />
-        )}
       </div>
     </Link>
   );
