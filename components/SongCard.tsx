@@ -48,7 +48,7 @@ const SongCard = ({ post, alreadyLiked }: IProps) => {
           </div>
         </div>
         {userProfile && (
-          <div className="mr-10">
+          <div className="mr-10 pl-10">
             <LikeButton
               alreadyLiked={alreadyLiked}
               post={post}

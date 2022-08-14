@@ -31,7 +31,7 @@ export const genres = [
   },
   {
     name: 'Latin',
-    color: '#477D95',
+    color: '#191314',
     activeStyles: 'xl:border-2 text-white xl:bg-[#477D95] xl:px-3 xl:py-2 py-1 pl-2 pr-2 rounded xl:rounded-full flex items-center justify-center cursor-pointer',
     normalStyles: 'xl:border-2 xl:border-[#477D95] text-[#477D95] xl:px-3 xl:py-2 py-1 pl-2 pr-2 rounded xl:rounded-full flex items-center justify-center cursor-pointer'
   },

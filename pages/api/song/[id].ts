@@ -26,13 +26,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     };
 
+    console.log('1');
+
     const { data } = await axios.request(trackOptions);
+
+    console.log('2');
 
     const response = await axios.request(lyricsOptions);
 
     let lyrics
 
-    if(response.data.lyrics.length === '0') {
+    if(response.data.length === 0) {
       lyrics = false
     } else {
       lyrics = response.data.lyrics.lines.map((line: any) => `${line.words}`)
@@ -40,6 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const dataToSend = {
       lyrics,
+      shortLyrics: lyrics.slice(0,5),
       type: data.tracks[0].album.album_type,
       artist: data.tracks[0].artists.map((item: any) => `${item.name}`),
       album: data.tracks[0].album.album_type === 'single' ? null : {
@@ -48,10 +53,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       },
       name: data.tracks[0].name,
       image: data.tracks[0].album.images[0].url,
-      uri: data.tracks[0].uri
+      uri: data.tracks[0].uri,
     }
 
-    console.log(dataToSend);
+    // console.log(dataToSend);
 
     res.status(200).json(dataToSend);
   }

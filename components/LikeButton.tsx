@@ -14,6 +14,7 @@ interface IProps {
     name: string;
     image: string;
     by?: string[]
+    spotifyId: string
   };
 }
 
