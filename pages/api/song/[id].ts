@@ -54,6 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       name: data.tracks[0].name,
       image: data.tracks[0].album.images[0].url,
       uri: data.tracks[0].uri,
+      releaseDate: data.tracks[0].album.releaseDate
     }
 
     // console.log(dataToSend);
