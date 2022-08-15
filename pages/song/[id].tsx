@@ -45,7 +45,7 @@ const Song = ({ songDetails }: IProps) => {
   const [postId, setPostId] = useState("");
   const [liked, setLiked] = useState(false);
   const [color, setColor] = useState("");
-  const [lyrics, setLyrics] = useState(false);
+  const [lyrics, setLyrics] = useState(true);
   const { userLikes } = useAuthStore();
 
   console.log(songDetails);
@@ -165,7 +165,7 @@ const Song = ({ songDetails }: IProps) => {
           ></iframe>
 
           <p className="text-3xl mx-auto">Lyrics</p>
-          <div className="rounded-md bg-[#27856A] p-10 w-[750px] mx-auto">
+          <div className="rounded-md bg-[#27856A] p-10 w-full mx-auto">
             {songDetails.lyrics &&
               (lyrics ? (
                 <>

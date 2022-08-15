@@ -52,14 +52,13 @@ const LikeButton = ({ alreadyLiked, post }: IProps) => {
       <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-neutral-600">
         <div 
           className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-red text-yellow"
-          onClick={handleLike}
         >
           <TbActivityHeartbeat className='text-[#1fb954]'/>
         </div>
       </div>
     ) : (
       !liked ? (
-        <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-[#1fb954]">
+        <div className="flex justify-center cursor-pointer items-center w-[30px] h-[30px] rounded-full bg-[#1fb954]">
           <div 
             className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-red text-yellow"
             onClick={handleLike}
@@ -68,7 +67,7 @@ const LikeButton = ({ alreadyLiked, post }: IProps) => {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center w-[30px] h-[30px] rounded-full bg-neutral-600">
+        <div className="flex justify-center cursor-pointer items-center w-[30px] h-[30px] rounded-full bg-neutral-600">
           <div 
             className="flex justify-center items-center w-[30px] h-[30px] rounded-full"
             onClick={handleLike}
