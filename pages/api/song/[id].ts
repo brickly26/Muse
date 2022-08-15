@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const dataToSend = {
       lyrics,
-      shortLyrics: lyrics.slice(0,5),
+      shortLyrics: lyrics.slice(0,10),
       type: data.tracks[0].album.album_type,
       artist: data.tracks[0].artists.map((item: any) => {
         return {

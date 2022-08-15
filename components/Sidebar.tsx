@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   const activeStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-start  cursor-pointer font-semibold text-[#1FB954] rounded'
 
-  const normalStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-startcursor-pointer font-semibold text-gray3 rounded'
+  const normalStyles = 'flex item-center gap-3 hover:bg-gray2 p-3 justify-start cursor-pointer font-semibold text-gray3 rounded'
 
   return (
     <div>

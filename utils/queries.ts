@@ -50,6 +50,7 @@ export const allLikesQuery = () => {
     image,
     type,
     by[],
+    spotifyId,
     likedBy->{
       image,
       _id,
@@ -65,6 +66,7 @@ export const followingLikesQuery = (following: string[]) => {
     name,
     _id,
     by,
+    spotifyId,
     image,
     type,
     likedBy->

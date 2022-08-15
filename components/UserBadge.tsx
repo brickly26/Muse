@@ -49,7 +49,9 @@ const UserBadge = ({ user, location, post = null, following = false }: IProps) =
             </Link>
           </div>
         </div>
-        {user._id !== userProfile._id && <FollowButton userId={user._id} following={following} location="search" />}
+        {userProfile && (
+          user._id !== userProfile._id && <FollowButton userId={user._id} following={following} location="search" />
+        )}
       </div>
     );
   }

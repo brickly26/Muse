@@ -89,10 +89,13 @@ const Search = ({ albums, songs, artists }: IProps) => {
                 {searchedAccounts.length > 0 ? (
                   searchedAccounts.map((user: IUser, idx: number) => {
                     console.log(userFollowers);
-                    const followed = checkIfAlreadyFollowing(
-                      userProfile._id,
-                      userFollowers
-                    );
+                    let followed = false;
+                    if(userProfile) {
+                      followed = checkIfAlreadyFollowing(
+                        userProfile._id,
+                        userFollowers
+                      );
+                    }
 
                     return (
                       <UserBadge
