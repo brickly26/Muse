@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: 'album',
       name: `${album.data.name}`,
       by: album.data.artists.items.map((item: any) => `${item.profile.name}`),
-      image: `${album.data.coverArt.sources[0].url}`,
+      image: album.data?.coverArt?.sources[0]?.url ? `${album.data.coverArt.sources[0].url}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
       spotifyId: `${album.data.uri.split(':')[2]}`
     }));
 
@@ -33,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       _id: `${artist.data.uri}`,
       type: 'artist',
       name: `${artist.data.profile.name}`,
-      image: `${artist.data.visuals.avatarImage?.sources[0].url}`,
+      image: artist.data.visuals.avatarImage ? `${artist.data.visuals.avatarImage?.sources[0].url}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
       spotifyId: `${artist.data.uri.split(':')[2]}`
     }));
 
@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: 'song',
       name: `${track.data.name}`,
       by: track.data.artists.items.map((item: any) => `${item.profile.name}`),
-      image: `${track.data.albumOfTrack.coverArt.sources[0].url}`,
+      image: track.data.albumOfTrack.coverArt.sources[0].url ? `${track.data.albumOfTrack.coverArt.sources[0].url}` : "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp",
       spotifyId: `${track.data.id}`
     }));
 
