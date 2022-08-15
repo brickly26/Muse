@@ -17,13 +17,13 @@ interface IProps {
   alreadyLiked: boolean;
 }
 
+const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+
 const ArtistCard = ({ post, alreadyLiked }: IProps) => {
-  const [error, setError] = useState(false);
+  const [imgSrc, setImageSrc] = useState(post.image)
   const { userProfile }: any = useAuthStore();
 
-  console.log(post)
-
-  const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+  console.log(imgSrc)
 
   return (
     <div className="lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
@@ -32,8 +32,8 @@ const ArtistCard = ({ post, alreadyLiked }: IProps) => {
           width={62}
           height={62}
           className="rounded-full"
-          onError={() => setError(true)}
-          src={!error ? post.image : profilePic}
+          onError={() => console.log('1')}
+          src={imgSrc}
           layout="responsive"
         />
       </div>
