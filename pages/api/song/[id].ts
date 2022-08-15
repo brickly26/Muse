@@ -46,7 +46,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       lyrics,
       shortLyrics: lyrics.slice(0,5),
       type: data.tracks[0].album.album_type,
-      artist: data.tracks[0].artists.map((item: any) => `${item.name}`),
+      artist: data.tracks[0].artists.map((item: any) => {
+        return {
+          id: item.id,
+          name: item.name
+        }
+      }),
       album: data.tracks[0].album.album_type === 'single' ? null : {
         id: data.tracks[0].album.id,
         name: data.tracks[0].album.name, 
@@ -54,10 +59,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       name: data.tracks[0].name,
       image: data.tracks[0].album.images[0].url,
       uri: data.tracks[0].uri,
-      releaseDate: data.tracks[0].album.releaseDate
+      releaseDate: data.tracks[0].album.release_date
     }
-
-    // console.log(dataToSend);
 
     res.status(200).json(dataToSend);
   }

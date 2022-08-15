@@ -64,6 +64,7 @@ export const followingLikesQuery = (following: string[]) => {
   const query = `*[_type == "like" && likedBy._ref in [${following.map(follower => `'${follower}'`)}]] | order(_createdAt desc) {
     name,
     _id,
+    by,
     image,
     type,
     likedBy->
