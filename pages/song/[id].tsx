@@ -14,7 +14,6 @@ import Sidebar from "../../components/Sidebar";
 import useAuthStore from "../../store/authStore";
 import { genres } from "../../utils/constants";
 import { BASE_URL, checkIfAlreadyLiked } from "../../utils";
-import { stringify } from "querystring";
 
 interface IProps {
   songDetails: {
@@ -46,7 +45,7 @@ const Song = ({ songDetails }: IProps) => {
   const [liked, setLiked] = useState(false);
   const [color, setColor] = useState("");
   const [lyrics, setLyrics] = useState(true);
-  const { userLikes } = useAuthStore();
+  const { userLikes, userProfile } = useAuthStore();
 
   console.log(songDetails);
 
@@ -80,7 +79,7 @@ const Song = ({ songDetails }: IProps) => {
         <div className="h-[92vh]">
           <Sidebar />
         </div>
-        <div className="flex flex-col gap-6 overflow-x-hidden overflow-y-auto h-[88vh]">
+        <div className="flex flex-col gap-6 overflow-x-hidden w-full mr-10 overflow-y-auto h-[88vh]">
           <div className="flex items-center justify-between w-full my-10 rounded bg-gray2">
             <div className="flex gap-6 w-full">
               <div className="flex items-center m-5">
@@ -137,7 +136,8 @@ const Song = ({ songDetails }: IProps) => {
                     </div>
                   </div>
                   <div className="mr-16 pl-10">
-                    <LikeButton
+                    {userProfile && (
+                      <LikeButton
                       alreadyLiked={liked}
                       post={{
                         name: songDetails.name,
@@ -148,6 +148,7 @@ const Song = ({ songDetails }: IProps) => {
                         spotifyId: id,
                       }}
                     />
+                    )}
                   </div>
                 </div>
               </div>

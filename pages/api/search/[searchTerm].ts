@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       url: 'https://spotify23.p.rapidapi.com/search/',
       params: {q: searchTerm, type: 'multi', offset: '0', limit: '10', numberOfTopResults: '5'},
       headers: {
-        'X-RapidAPI-Key': '400be26774msh66cdea547d51b5ep114199jsn7c36fba4ee9b',
+        'X-RapidAPI-Key': '6237b50470msh86fd63969ea5839p131026jsn52861ba968f6',
         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
       }
     };
