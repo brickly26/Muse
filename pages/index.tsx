@@ -72,7 +72,6 @@ const Home = ({ posts }: IProps) => {
                   </div>
                 );
               } else if (post.type === "album") {
-                console.log(post)
                 return (
                   <div className="flex flex-col border-b-2 border-gray3 pb-6">
                     <UserBadge

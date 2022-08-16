@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -21,10 +21,7 @@ interface IProps {
 const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
 
 const ArtistCard = ({ post, alreadyLiked, location }: IProps) => {
-  const [imgSrc, setImageSrc] = useState(post.image)
   const { userProfile }: any = useAuthStore();
-
-  console.log(imgSrc)
 
   return (
     <div className={`lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded cursor-pointer bg-gray2`}>
@@ -34,7 +31,7 @@ const ArtistCard = ({ post, alreadyLiked, location }: IProps) => {
           height={62}
           className="rounded-full"
           onError={() => console.log('1')}
-          src={imgSrc}
+          src={post.image}
           layout="responsive"
         />
       </div>
