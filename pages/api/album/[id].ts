@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const options1 = {
       method: 'GET',
-      url: 'https://spotify23.p.rapidapi.com/artists/',
+      url: 'https://spotify23.p.rapidapi.com/albums/',
       params: {ids: id},
       headers: {
         'X-RapidAPI-Key': '6237b50470msh86fd63969ea5839p131026jsn52861ba968f6',
@@ -18,8 +18,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const options2 = {
       method: 'GET',
-      url: 'https://spotify23.p.rapidapi.com/artist_overview/',
-      params: {id: id},
+      url: 'https://spotify23.p.rapidapi.com/album_tracks/',
+      params: {id: id, offset: '0', limit: '300'},
       headers: {
         'X-RapidAPI-Key': '6237b50470msh86fd63969ea5839p131026jsn52861ba968f6',
         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
@@ -31,7 +31,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const res2 = await axios.request(options2);
 
     const dataToSend = {
-      name: res1.
+      name: res1.data.albums[0].name,
+      image: res1.data.albums[0].images.length > 0 ? res1.data.albums[0].images[0].url : 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp',
+      by: res1.data.album[0].artists.map((artist: any) => {
+        return {
+          name: artist.name,
+          spotifyId: artist.id
+        }
+      }),
+      releaseDate: res1.data.albums[0].release_date,
+      songs: res2.data.album.tracks.items.map((song: any) => {
+        return {
+          spotifyId: song.uri.split(':')[2],
+          name: song.name,
+          playCount: parseInt(song.playcount).toLocaleString()
+        }
+      }),
     }
 
     res.status(200).json(dataToSend);

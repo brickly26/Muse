@@ -41,12 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           image: song.track.album.coverArt.sources.length > 0 ? song.track.album.coverArt.sources[0].url : "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp",
           name: song.track.name,
           spotifyId: song.track.id,
-          by: song.track.artists.items.map((artist: any) => {
-            return {
-              spotifyId: artist.uri.split(':')[2],
-              name: artist.profile.name
-            }
-          }),
           playCount: parseInt(song.track.playcount).toLocaleString()
         }
       }),

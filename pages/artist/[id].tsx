@@ -23,10 +23,6 @@ interface IProps {
       name: string;
       spotifyId: string;
       playCount: string
-      by: {
-        spotifyId: string;
-        name: string;
-      }[]
     }[];
     albums: {
       image: string;
