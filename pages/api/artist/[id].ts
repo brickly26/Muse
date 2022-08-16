@@ -30,8 +30,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const res2 = await axios.request(options2);
 
+    console.log(res1)
+
     const dataToSend = {
-      name: res1.
+      name: res1
     }
 
     res.status(200).json(dataToSend);
