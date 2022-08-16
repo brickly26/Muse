@@ -94,7 +94,7 @@ const Song = ({ songDetails }: IProps) => {
               <div className="flex flex-col justify-around flex-1 w-full">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col justify-center">
-                    <p className="text-2xl">{songDetails.name}</p>
+                    <p className="text-2xl mb-3">{songDetails.name}</p>
                     <div className="flex flex-col">
                       <p className="text-lg text-gray3">
                         By:&nbsp;&nbsp;
