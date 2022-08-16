@@ -33,6 +33,8 @@ const Search = ({ albums, songs, artists }: IProps) => {
   const { searchTerm }: any = router.query;
   const [render, setRender] = useState('false');
 
+  console.log(artists)
+
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
   const songTab = tab === "song" ? "border-b-2 border-white" : "text-gray3";

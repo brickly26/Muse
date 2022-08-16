@@ -65,17 +65,20 @@ const Home = ({ posts }: IProps) => {
                     <UserBadge
                       location="feed"
                       post={post.type}
+                      date={post._createdAt}
                       user={post.likedBy}
                     />
                     <SongCard post={post} alreadyLiked={liked} key={idx} />
                   </div>
                 );
               } else if (post.type === "album") {
+                console.log(post)
                 return (
                   <div className="flex flex-col border-b-2 border-gray3 pb-6">
                     <UserBadge
                       location="feed"
                       post={post.type}
+                      date={post._createdAt}
                       user={post.likedBy}
                     />
                     <AlbumCard post={post} alreadyLiked={liked} key={idx} />
@@ -87,6 +90,7 @@ const Home = ({ posts }: IProps) => {
                     <UserBadge
                       location="feed"
                       post={post.type}
+                      date={post._createdAt}
                       user={post.likedBy}
                     />
                     <ArtistCard post={post} alreadyLiked={liked} key={idx} />

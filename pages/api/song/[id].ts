@@ -26,11 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     };
 
-    console.log('1');
-
     const { data } = await axios.request(trackOptions);
-
-    console.log('2');
 
     const response = await axios.request(lyricsOptions);
 
@@ -57,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         name: data.tracks[0].album.name, 
       },
       name: data.tracks[0].name,
-      image: data.tracks[0].album.images[0].url,
+      image: data.tracks[0].album.images.length > 0 ? data.tracks[0].album.images[0].url : "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp",
       uri: data.tracks[0].uri,
       releaseDate: data.tracks[0].album.release_date
     }

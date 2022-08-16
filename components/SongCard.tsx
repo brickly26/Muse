@@ -15,17 +15,16 @@ interface IProps {
     spotifyId: string;
   };
   alreadyLiked: boolean;
+  location: string;
 }
 
-const SongCard = ({ post, alreadyLiked }: IProps) => {
+const SongCard = ({ post, alreadyLiked, location }: IProps) => {
   const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
 
-  const musicPic =
-    "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
   return (
-    <div className="flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded bg-gray2">
+    <div className={`flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded bg-gray2`}>
       <div className="flex gap-2 h-full items-center">
         <Link href={`/song/${post.spotifyId}`}>
           <div className="rounded-md cursor-pointer lg:w-[100px] lg:h-[100px] mx-5">

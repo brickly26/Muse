@@ -14,18 +14,17 @@ interface IProps {
     spotifyId: string;
   };
   alreadyLiked: boolean;
+  location?: string;
 }
 
-const AlbumCard = ({ post, alreadyLiked }: IProps) => {
+const AlbumCard = ({ post, alreadyLiked, location }: IProps) => {
   const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
   
-  const musicPic =
-    "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp";
 
   return (
     <Link href={`/album/${post.spotifyId}`}>
-      <div className="lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
+      <div className={`lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded cursor-pointer bg-gray2`}>
         <div className="rounded-md lg:w-[450px] lg:h-[450px] mt-6 m-auto">
           <Image
             width={62}

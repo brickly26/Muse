@@ -15,18 +15,19 @@ interface IProps {
     image: string;
   };
   alreadyLiked: boolean;
+  location?: string;
 }
 
 const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
 
-const ArtistCard = ({ post, alreadyLiked }: IProps) => {
+const ArtistCard = ({ post, alreadyLiked, location }: IProps) => {
   const [imgSrc, setImageSrc] = useState(post.image)
   const { userProfile }: any = useAuthStore();
 
   console.log(imgSrc)
 
   return (
-    <div className="lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] mb-10 rounded cursor-pointer bg-gray2">
+    <div className={`lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded cursor-pointer bg-gray2`}>
       <div className="rounded-md lg:w-[450px] lg:h-[450px] mt-6 m-auto">
         <Image
           width={62}
