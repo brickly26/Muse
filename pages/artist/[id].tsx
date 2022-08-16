@@ -7,7 +7,7 @@ interface IProps {
   
 }
 
-const artist = ({ data }: IProps) => {
+const artist = ({ artistDetails }: IProps) => {
   return (
     <div>artist</div>
   );
@@ -18,7 +18,7 @@ export const getServerSideProps = async ({
 }: {
   params: { id: string }
 }) => {
-  const { data } = await axios.get(`${BASE_URL}/artist/${id}`);
+  const { data } = await axios.get(`${BASE_URL}/api/artist/${id}`);
 
   return {
     props: { artistDetails: data }

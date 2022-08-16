@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       type: 'album',
       name: `${album.data.name}`,
       by: album.data.artists.items.map((item: any) => `${item.profile.name}`),
-      image: album.data?.coverArt?.sources[0]?.url ? `${album.data.coverArt.sources[0].url}` : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+      image: album.data?.coverArt?.sources[0]?.url ? `${album.data.coverArt.sources[0].url}` : "https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp",
       spotifyId: `${album.data.uri.split(':')[2]}`
     }));
 
