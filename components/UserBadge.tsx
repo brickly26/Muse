@@ -2,8 +2,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GoVerified } from "react-icons/go";
-import { IUser, Like } from "../types";
+import moment from 'moment'
 
+import { IUser, Like } from "../types";
 import FollowButton from "./FollowButton";
 import LikeButton from "./LikeButton";
 import useAuthStore from "../store/authStore";
@@ -13,9 +14,10 @@ interface IProps {
   location: string;
   post?: string | null;
   following?: boolean;
+  date?: string;
 }
 
-const UserBadge = ({ user, location, post = null, following = false }: IProps) => {
+const UserBadge = ({ user, location, post = null, following = false, date }: IProps) => {
   const { userProfile }: any = useAuthStore();
 
   if (location === "search") {
@@ -86,7 +88,7 @@ const UserBadge = ({ user, location, post = null, following = false }: IProps) =
                 </p>
               </div>
             </Link>
-            <p className="text-sm text-neutral-500 mt-3">{`Liked this ${post} a few seconds ago`}</p>
+            <p className="text-sm text-neutral-500 mt-3">{`Liked this ${post} ${moment(date).fromNow()}`}</p>
           </div>
         </div>
       </div>
