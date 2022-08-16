@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link'
+import { Pagination } from '@mui/material';
 import { useRouter } from 'next/router'
 
 import Navbar from '../../components/Navbar';
@@ -36,11 +37,15 @@ interface IProps {
 }
 
 const artist = ({ artistDetails }: IProps) => {
-  const [render, setRender] = useState(false)
-  const router = useRouter()
-  const { id }: any = router.query
-  const [liked, setLiked] = useState(false)
-  const [postId, setPostId] = useState('')
+  const [render, setRender] = useState(false);
+  const router = useRouter();
+  const { id }: any = router.query;
+  const [liked, setLiked] = useState(false);
+  const [postId, setPostId] = useState('');
+  const [renderedAlbums, setRenderedAlbums] = useState(artistDetails.albums.length > 5 ? artistDetails.albums.slice(0,5): artistDetails.albums)
+  const [page, setPage] = useState(1);
+  const PER_PAGE = 5
+  const count = Math.ceil(artistDetails.albums.length / PER_PAGE)
   const { userLikes, userProfile } = useAuthStore();
 
   useEffect(() => {
@@ -53,6 +58,11 @@ const artist = ({ artistDetails }: IProps) => {
     setLiked(alreadyLiked.length > 0 ? true : false)
     setPostId(alreadyLiked)
   }, [liked])
+
+  const handleChange = (e, p) => {
+    setPage(p);
+
+  }
 
   return (
     <div className="xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black">
@@ -137,8 +147,12 @@ const artist = ({ artistDetails }: IProps) => {
             <div>
               {}
             </div>
-            <div>
-              <Pagination />
+            <div className='flex justify-end'>
+              <Pagination 
+                count={count} 
+                page={page}
+                color="#1FB954"
+              />
             </div>
           </div>
         </div>
