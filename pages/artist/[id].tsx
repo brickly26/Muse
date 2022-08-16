@@ -4,7 +4,24 @@ import axios from 'axios';
 import { BASE_URL } from '../../utils';
 
 interface IProps {
-  
+  name: string;
+  spotifyId: string;
+  image: string;
+  wRank: number;
+  topSongs: {
+    image: string;
+    name: string;
+    spotifyId: string;
+    by: {
+      spotifyId: string;
+      name: string;
+    }[]
+  }[];
+  albums: {
+    image: string;
+    name: string;
+    spotifyId: string;
+  }[]
 }
 
 const artist = ({ artistDetails }: IProps) => {

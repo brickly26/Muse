@@ -6,8 +6,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if(req.method === 'GET') {
     const { id } = req.query;
 
-    console.log('1')
-
     const options1 = {
       method: 'GET',
       url: 'https://spotify23.p.rapidapi.com/artists/',
@@ -28,15 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     };
 
-    console.log('2')
-
     const res1 = await axios.request(options1);
 
-    console.log('3')
-
     const res2 = await axios.request(options2);
-
-    console.log(res2.data.data.artist)
 
     const dataToSend = {
       name: res1.data.artists[0].name,
@@ -65,8 +57,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       })
     }
-
-    console.log(dataToSend)
 
     res.status(200).json(dataToSend);
   }
