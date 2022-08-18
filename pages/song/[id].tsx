@@ -98,7 +98,7 @@ const Song = ({ songDetails }: IProps) => {
                       <p className="text-lg text-gray3">
                         By:&nbsp;&nbsp;
                         {songDetails.artist.map(
-                          (artist: string, idx: number) => {
+                          (artist: any, idx: number) => {
                             if (songDetails.artist.length - 1 !== idx) {
                               return (
                                 <Link href={`/artist/${artist.id}`}>
