@@ -33,21 +33,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const dataToSend = {
       name: res1.data.albums[0].name,
       image: res1.data.albums[0].images.length > 0 ? res1.data.albums[0].images[0].url : 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp',
-      by: res1.data.album[0].artists.map((artist: any) => {
+      spotifyId: res1.data.albums[0].id,
+      by: res1.data.albums[0].artists.map((artist: any) => {
         return {
           name: artist.name,
           spotifyId: artist.id
         }
       }),
       releaseDate: res1.data.albums[0].release_date,
-      songs: res2.data.album.tracks.items.map((song: any) => {
+      songs: res2.data.data.album.tracks.items.map((song: any) => {
         return {
-          spotifyId: song.uri.split(':')[2],
-          name: song.name,
-          playCount: parseInt(song.playcount).toLocaleString()
+          spotifyId: song.track.uri.split(':')[2],
+          name: song.track.name,
+          playCount: parseInt(song.track.playcount).toLocaleString()
         }
       }),
     }
+
+    console.log(dataToSend)
 
     res.status(200).json(dataToSend);
   }

@@ -12,7 +12,7 @@ interface IProps {
     _id: string;
     type: string;
     name: string;
-    image: string;
+    image?: string;
     by?: string[]
     spotifyId: string
   };
@@ -24,7 +24,8 @@ const LikeButton = ({ alreadyLiked, post }: IProps) => {
   const { userProfile, fetchUserLikes }: any = useAuthStore();
   const [loading, setLoading] = useState(false);
 
-  const handleLike = async () => {
+  const handleLike = async (e: { stopPropagation: () => void; }) => {
+    e.stopPropagation();
     setLoading(true)
 
     const response = await axios.put(`${BASE_URL}/api/like`, {
