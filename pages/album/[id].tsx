@@ -101,10 +101,10 @@ const Album = ({ albumDetails }: IProps) => {
                           }
                         })}
                       </p>
-                      <p className="text-lg text-gray3">
+                      {/* <p className="text-lg text-gray3">
                         Released Date:&nbsp;&nbsp;
                         {moment(albumDetails.releaseDate).format("MMM Do YYYY")}
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                   <div className="mr-16 pl-10">
