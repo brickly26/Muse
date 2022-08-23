@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import moment from "moment";
 import { useRouter } from "next/router";
 
 import Navbar from "../../components/Navbar";
