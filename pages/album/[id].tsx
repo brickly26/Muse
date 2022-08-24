@@ -49,7 +49,7 @@ const Album = ({ albumDetails }: IProps) => {
 
     setPostId(alreadyLiked);
     setLiked(alreadyLiked.length > 0 ? true : false);
-  }, [liked]);
+  }, [liked, albumDetails.image, albumDetails.name, userLikes]);
 
   const handleRoute = (route: string, id: string) => {
     router.push(`/${route}/${id}`)
