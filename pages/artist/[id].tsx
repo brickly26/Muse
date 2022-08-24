@@ -32,7 +32,7 @@ interface IProps {
   }
 }
 
-const artist = ({ artistDetails }: IProps) => {
+const Artist = ({ artistDetails }: IProps) => {
   const [render, setRender] = useState(false);
   const router = useRouter();
   const { id }: any = router.query;
@@ -169,4 +169,4 @@ export const getServerSideProps = async ({
   }
 }
 
-export default artist;
+export default Artist;
