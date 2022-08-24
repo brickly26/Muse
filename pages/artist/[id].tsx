@@ -53,7 +53,7 @@ const Artist = ({ artistDetails }: IProps) => {
 
     setLiked(alreadyLiked.length > 0 ? true : false)
     setPostId(alreadyLiked)
-  }, [liked])
+  }, [liked, artistDetails.image, artistDetails.name, userLikes])
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -76,6 +76,7 @@ const Artist = ({ artistDetails }: IProps) => {
                   width={200}
                   height={200}
                   className="rounded-md"
+                  alt={artistDetails.name}
                 />
               </div>
               <div className="flex flex-col justify-around flex-1 w-full">
@@ -115,7 +116,7 @@ const Artist = ({ artistDetails }: IProps) => {
             {artistDetails.topSongs.map((song: any, idx: number) => {
 
               return (
-                <div className={`flex justify-between pt-2 ${idx === 4 ? 'border-none' : 'border-gray3 border-b-2 pb-2' }`}>
+                <div key={idx} className={`flex justify-between pt-2 ${idx === 4 ? 'border-none' : 'border-gray3 border-b-2 pb-2' }`}>
                   <div className='flex gap-4 items-center'>
                     <p className='text-xl pl-3'>{idx + 1}</p>
                     <div>
@@ -123,6 +124,7 @@ const Artist = ({ artistDetails }: IProps) => {
                         src={song.image}
                         width={50}
                         height={50}
+                        alt={song.name}
                       />
                     </div>
                     <p className='text-lg'>{song.name}</p>

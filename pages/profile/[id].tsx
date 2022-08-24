@@ -31,7 +31,7 @@ const Profile = ({ user }: IProps) => {
     if (currUser) {
       fetchUserLikes(user._id);
     }
-  }, [currUser]);
+  }, [currUser, fetchUserLikes, user._id]);
 
   const likesTab = tab === "likes" ? "border-b-2 border-white" : "text-gray3";
   const followingTab =
@@ -119,7 +119,7 @@ const Profile = ({ user }: IProps) => {
 
                   if (type === "song") {
                     return (
-                      <div className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
+                      <div key={idx} className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
                         <p className="text-lg text-neutral-500">{`Liked this ${
                           like.type
                         } ${moment(like._createdAt).fromNow()}`}</p>
@@ -128,7 +128,7 @@ const Profile = ({ user }: IProps) => {
                     );
                   } else if (type === "artist") {
                     return (
-                      <div className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
+                      <div key={idx} className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
                         <p className="text-lg text-neutral-500">{`Liked this ${
                           like.type
                         } ${moment(like._createdAt).fromNow()}`}</p>
@@ -142,7 +142,7 @@ const Profile = ({ user }: IProps) => {
                     );
                   } else if (type === "album") {
                     return (
-                      <div className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
+                      <div key={idx} className="md:mt-16 flex flex-col md:flex-wrap gap-6 md:justify-start">
                         <p className="text-lg text-neutral-500">{`Liked this ${
                           like.type
                         } ${moment(like._createdAt).fromNow()}`}</p>
@@ -165,6 +165,7 @@ const Profile = ({ user }: IProps) => {
 
                   return (
                     <UserBadge
+                      key={idx}
                       user={user}
                       location="search"
                       following={followed}
@@ -185,6 +186,7 @@ const Profile = ({ user }: IProps) => {
 
                   return (
                     <UserBadge
+                      key={idx}
                       user={user}
                       location="search"
                       following={followed}
