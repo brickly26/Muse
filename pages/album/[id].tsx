@@ -71,6 +71,7 @@ const Album = ({ albumDetails }: IProps) => {
                   width={200}
                   height={200}
                   className="rounded-md"
+                  alt="album"
                 />
               </div>
               <div className="flex flex-col justify-around flex-1 w-full">
@@ -83,7 +84,7 @@ const Album = ({ albumDetails }: IProps) => {
                         {albumDetails.by.map((artist: any, idx: number) => {
                           if (albumDetails.by.length - 1 !== idx) {
                             return (
-                              <Link href={`/artist/${artist.spotifyId}`}>
+                              <Link href={`/artist/${artist.spotifyId}`} key={idx}>
                                 <span className="cursor-pointer hover:underline">
                                   {artist.name},&nbsp;&nbsp;
                                 </span>
@@ -143,6 +144,7 @@ const Album = ({ albumDetails }: IProps) => {
 
               return (
                 <div
+                  key={idx}
                   onClick={() => handleRoute('song', song.spotifyId)}
                   className={`flex justify-between pt-2 ${
                     idx === albumDetails.songs.length - 1
