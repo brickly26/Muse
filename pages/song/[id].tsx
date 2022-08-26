@@ -62,7 +62,7 @@ const Song = ({ songDetails }: IProps) => {
     // setColor(genres[Math.floor(Math.random() * 10 + 1)].color);
     setLiked(alreadyLiked.length > 0 ? true : false);
     setPostId(alreadyLiked);
-  }, [liked]);
+  }, [liked, songDetails.image, songDetails.name, userLikes]);
 
   const handleLyrics = () => {
     if (lyrics) {
@@ -88,6 +88,7 @@ const Song = ({ songDetails }: IProps) => {
                   width={200}
                   height={200}
                   className="rounded-md"
+                  alt={songDetails.name}
                 />
               </div>
               <div className="flex flex-col justify-around flex-1 w-full">
@@ -101,7 +102,7 @@ const Song = ({ songDetails }: IProps) => {
                           (artist: any, idx: number) => {
                             if (songDetails.artist.length - 1 !== idx) {
                               return (
-                                <Link href={`/artist/${artist.id}`}>
+                                <Link key={idx} href={`/artist/${artist.id}`}>
                                   <span className="cursor-pointer hover:underline">
                                     {artist.name},&nbsp;&nbsp;
                                   </span>
