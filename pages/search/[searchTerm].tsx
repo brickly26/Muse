@@ -33,8 +33,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
   const { searchTerm }: any = router.query;
   const [render, setRender] = useState('false');
 
-  console.log(artists)
-
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
   const songTab = tab === "song" ? "border-b-2 border-white" : "text-gray3";
@@ -48,7 +46,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
     if (user) {
       fetchUserLikes(user._id);
     }
-  }, [user]);
+  }, [user, fetchUserLikes]);
 
   return (
     <div className="xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black">
@@ -101,6 +99,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
 
                     return (
                       <UserBadge
+                        key={idx}
                         user={user}
                         location="search"
                         following={followed}

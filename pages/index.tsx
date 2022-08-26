@@ -29,7 +29,7 @@ const Home = ({ posts }: IProps) => {
       setRenderedPosts(posts);
     }
     setUser(userProfile);
-  }, [userProfile]);
+  }, [userProfile, user, posts]);
 
   const getFollowingLikes = async (userId: any) => {
     const response = await axios.get(`${BASE_URL}/api/feed/${userId}`);

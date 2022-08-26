@@ -82,7 +82,7 @@ const Album = ({ albumDetails }: IProps) => {
                         {albumDetails.by.map((artist: any, idx: number) => {
                           if (albumDetails.by.length - 1 !== idx) {
                             return (
-                              <Link href={`/artist/${artist.spotifyId}`}>
+                              <Link href={`/artist/${artist.spotifyId}`} key={idx}>
                                 <span className="cursor-pointer hover:underline">
                                   {artist.name},&nbsp;&nbsp;
                                 </span>
