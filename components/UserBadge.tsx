@@ -33,6 +33,7 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
                   className="rounded-full"
                   src={user.image}
                   layout="responsive"
+                  alt={user.userName}
                 />
               </div>
             </Link>
@@ -70,8 +71,8 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
                   height={62}
                   className="rounded-full"
                   src={user.image}
-                  alt="profile photo"
                   layout="responsive"
+                  alt={user.userName}
                 />
               </div>
             </Link>
@@ -106,7 +107,7 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
                 width={34}
                 height={34}
                 className="rounded-full"
-                alt="user Profile"
+                alt={user.userName}
                 layout="responsive"
               />
             </div>
