@@ -8,7 +8,7 @@ import { FiLogOut } from "react-icons/fi";
 import { GoogleLogin } from '@react-oauth/google';
 
 import useAuthStore from "../store/authStore";
-import Logo from "../utils/muse.png";
+import Logo from "../utils/Muse.png";
 import { IUser } from "../types";
 import { createOrGetUser } from '../utils';
 
