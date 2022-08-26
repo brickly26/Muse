@@ -39,6 +39,8 @@ const Profile = ({ user }: IProps) => {
   const followersTab =
     tab === "followers" ? "border-b-2 border-white" : "text-gray3";
 
+  console.log(user)
+
   return (
     <div className="xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black">
       <Navbar setRender={setRender} />

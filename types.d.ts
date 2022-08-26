@@ -10,6 +10,7 @@ export interface Like {
     image: 'string';
   }[];
   spotifyId: string;
+  _createdAt: string;
 }
 
 export interface IUser {
