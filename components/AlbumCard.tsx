@@ -33,6 +33,7 @@ const AlbumCard = ({ post, alreadyLiked, location }: IProps) => {
             onError={() => setError(true)}
             src={!error ? post.image : musicPic}
             layout="responsive"
+            alt={post.name}
           />
         </div>
         <div className="flex m-6">
