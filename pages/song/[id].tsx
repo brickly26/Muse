@@ -181,8 +181,8 @@ const Song = ({ songDetails }: IProps) => {
                     </div>
                   </div>
                   <div>
-                    {songDetails.shortLyrics.map((lyric: string) => (
-                      <p className="text-2xl">{lyric}</p>
+                    {songDetails.shortLyrics.map((lyric: string, idx: number) => (
+                      <p key={idx} className="text-2xl">{lyric}</p>
                     ))}
                   </div>
                 </>
