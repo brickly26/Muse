@@ -45,8 +45,6 @@ const LikeButton = ({ alreadyLiked, post }: IProps) => {
     fetchUserLikes(userProfile._id)
   }
 
-
-
   return (
     <>
     {loading ? (
