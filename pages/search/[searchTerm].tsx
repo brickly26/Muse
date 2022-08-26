@@ -96,7 +96,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
                         userFollowers
                       );
                     }
-                    
+      
                     return (
                       <UserBadge
                         key={idx}
