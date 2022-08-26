@@ -45,8 +45,6 @@ const Album = ({ albumDetails }: IProps) => {
       userLikes
     );
 
-    console.log(1)
-
     setPostId(alreadyLiked);
     setLiked(alreadyLiked.length > 0 ? true : false);
   }, [liked, albumDetails.image, albumDetails.name, userLikes]);
