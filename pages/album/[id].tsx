@@ -45,11 +45,9 @@ const Album = ({ albumDetails }: IProps) => {
       userLikes
     );
 
-    console.log(1)
-
     setPostId(alreadyLiked);
     setLiked(alreadyLiked.length > 0 ? true : false);
-  }, [liked]);
+  }, [liked, albumDetails.image, albumDetails.name, userLikes]);
 
   const handleRoute = (route: string, id: string) => {
     router.push(`/${route}/${id}`)
@@ -71,6 +69,7 @@ const Album = ({ albumDetails }: IProps) => {
                   width={200}
                   height={200}
                   className="rounded-md"
+                  alt={albumDetails.name}
                 />
               </div>
               <div className="flex flex-col justify-around flex-1 w-full">
@@ -143,6 +142,7 @@ const Album = ({ albumDetails }: IProps) => {
 
               return (
                 <div
+                  key={idx}
                   onClick={() => handleRoute('song', song.spotifyId)}
                   className={`flex justify-between pt-2 ${
                     idx === albumDetails.songs.length - 1
