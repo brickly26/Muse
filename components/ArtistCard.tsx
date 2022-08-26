@@ -18,8 +18,6 @@ interface IProps {
   location?: string;
 }
 
-const profilePic = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
-
 const ArtistCard = ({ post, alreadyLiked, location }: IProps) => {
   const { userProfile }: any = useAuthStore();
 
@@ -33,6 +31,7 @@ const ArtistCard = ({ post, alreadyLiked, location }: IProps) => {
           onError={() => console.log('1')}
           src={post.image}
           layout="responsive"
+          alt={post.name}
         />
       </div>
       <div className="flex m-6">
