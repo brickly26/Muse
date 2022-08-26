@@ -69,7 +69,6 @@ const Album = ({ albumDetails }: IProps) => {
                   width={200}
                   height={200}
                   className="rounded-md"
-                  alt={albumDetails.name}
                 />
               </div>
               <div className="flex flex-col justify-around flex-1 w-full">
