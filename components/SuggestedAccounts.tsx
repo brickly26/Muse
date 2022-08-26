@@ -11,7 +11,7 @@ const SuggestedAccounts = () => {
 
   useEffect(() => {
     fetchAllUsers();
-  }, []);
+  }, [fetchAllUsers]);
 
   return (
     <div className="xl:border-b-2 border-gray3">
