@@ -101,8 +101,6 @@ const Profile = ({ user }: IProps) => {
             let liked = false;
             const alreadyLikedId = checkIfAlreadyLiked(like, userLikes);
 
-            console.log("1", alreadyLikedId);
-
             if (alreadyLikedId.length > 0) {
               like._id = alreadyLikedId;
               liked = true;
@@ -216,8 +214,6 @@ export const getServerSideProps = async ({
   params: { id: string };
 }) => {
   const res = await axios.get(`${BASE_URL}/api/profile/${id}`);
-
-  console.log(res.data[0])
 
   return {
     props: { user: res.data[0] },

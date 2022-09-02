@@ -7,6 +7,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { id } = req.query;
 
     const user = await client.fetch(profileUserQuery(id));
+
+    console.log(user)
     
     res.status(200).json(user);
   }

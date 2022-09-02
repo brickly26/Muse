@@ -15,6 +15,7 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
     _type: 'user',
     userName: name, 
     image: picture,
+    likes: [],
     followers: [],
     following: []
   }
