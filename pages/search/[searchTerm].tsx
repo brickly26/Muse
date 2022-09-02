@@ -158,7 +158,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
     </div>
   );
 };
-
 export const getServerSideProps = async ({
   params: { searchTerm },
 }: {

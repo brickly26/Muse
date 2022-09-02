@@ -19,9 +19,9 @@ interface IProps {
 }
 
 const SongCard = ({ post, alreadyLiked, location }: IProps) => {
-  const [error, setError] = useState(false);
   const { userProfile } = useAuthStore();
 
+  console.log(post)
 
   return (
     <div className={`flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded bg-gray2`}>
@@ -32,8 +32,7 @@ const SongCard = ({ post, alreadyLiked, location }: IProps) => {
               width={62}
               height={62}
               className="rounded-md"
-              onError={() => setError(true)}
-              src={!error ? post.image : musicPic}
+              src={post.image}
               layout="responsive"
               alt={post.name}
             />

@@ -39,6 +39,8 @@ const Profile = ({ user }: IProps) => {
   const followersTab =
     tab === "followers" ? "border-b-2 border-white" : "text-gray3";
 
+  console.log(user)
+
   return (
     <div className="w-full">
       <div className="mb-5">
