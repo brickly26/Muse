@@ -31,7 +31,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
   const [tab, setTab] = useState("song");
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const [render, setRender] = useState('false');
+  const [render, setRender] = useState("false");
 
   const albumTab = tab === "album" ? "border-b-2 border-white" : "text-gray3";
   const artistTab = tab === "artist" ? "border-b-2 border-white" : "text-gray3";
@@ -49,132 +49,115 @@ const Search = ({ albums, songs, artists }: IProps) => {
   }, [user, fetchUserLikes]);
 
   return (
-    <div className="xl:w-[1200px] m-auto overflow-hidden h-[100vh] bg-black">
-      <Navbar setRender={setRender} />
-      <div className="flex gap-6 md:gap-20">
-        <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto">
-          <Sidebar />
-        </div>
-        <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] flex-1">
-          <div className="w-full">
-            <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
-              <p
-                className={`text-xl font-semibold cursor-pointer mt-2 ${accountTab}`}
-                onClick={() => setTab("account")}
-              >
-                Accounts
-              </p>
-              <p
-                className={`text-xl font-semibold cursor-pointer mt-2 ${songTab}`}
-                onClick={() => setTab("song")}
-              >
-                Tracks
-              </p>
-              <p
-                className={`text-xl font-semibold cursor-pointer mt-2 ${artistTab}`}
-                onClick={() => setTab("artist")}
-              >
-                Artists
-              </p>
-              <p
-                className={`text-xl font-semibold cursor-pointer mt-2 ${albumTab}`}
-                onClick={() => setTab("album")}
-              >
-                Albums
-              </p>
-            </div>
-
-            {tab === "account" && (
-              <div className="md:mt-16">
-                {searchedAccounts.length > 0 ? (
-                  searchedAccounts.map((user: IUser, idx: number) => {
-                    console.log(userFollowers);
-                    let followed = false;
-                    if(userProfile) {
-                      followed = checkIfAlreadyFollowing(
-                        userProfile._id,
-                        userFollowers
-                      );
-                    }
-                    
-                    return (
-                      <UserBadge
-                        key={idx}
-                        user={user}
-                        location="search"
-                        following={followed}
-                      />
-                    );
-                  })
-                ) : (
-                  <NoResults
-                    text={`No account results for ${searchTerm}`}
-                    music={false}
-                  />
-                )}
-              </div>
-            )}
-
-            {tab === "song" && (
-              <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-                {songs.map((song: Like, idx: number) => {
-                  const alreadyLikedId = checkIfAlreadyLiked(song, userLikes);
-                  let liked = false;
-
-                  if (alreadyLikedId.length > 0) {
-                    song._id = alreadyLikedId;
-                    liked = true;
-                  }
-
-                  return (
-                    <SongCard post={song} alreadyLiked={liked} key={idx} />
-                  );
-                })}
-              </div>
-            )}
-
-            {tab === "artist" && (
-              <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-                {artists.map((artist: Like, idx: number) => {
-                  const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
-                  let liked = false;
-
-                  if (alreadyLikedId.length > 0) {
-                    artist._id = alreadyLikedId;
-                    liked = true;
-                  }
-
-                  return (
-                    <ArtistCard post={artist} alreadyLiked={liked} key={idx} />
-                  );
-                })}
-              </div>
-            )}
-
-            {tab === "album" && (
-              <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
-                {albums.map((album: Like, idx: number) => {
-                  const alreadyLikedId = checkIfAlreadyLiked(album, userLikes);
-                  let liked = false;
-
-                  if (alreadyLikedId.length > 0) {
-                    album._id = alreadyLikedId;
-                    liked = true;
-                  }
-
-                  return (
-                    <AlbumCard post={album} alreadyLiked={liked} key={idx} />
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </div>
+    <div className="w-full">
+      <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
+        <p
+          className={`text-xl font-semibold cursor-pointer mt-2 ${accountTab}`}
+          onClick={() => setTab("account")}
+        >
+          Accounts
+        </p>
+        <p
+          className={`text-xl font-semibold cursor-pointer mt-2 ${songTab}`}
+          onClick={() => setTab("song")}
+        >
+          Tracks
+        </p>
+        <p
+          className={`text-xl font-semibold cursor-pointer mt-2 ${artistTab}`}
+          onClick={() => setTab("artist")}
+        >
+          Artists
+        </p>
+        <p
+          className={`text-xl font-semibold cursor-pointer mt-2 ${albumTab}`}
+          onClick={() => setTab("album")}
+        >
+          Albums
+        </p>
       </div>
+
+      {tab === "account" && (
+        <div className="md:mt-16">
+          {searchedAccounts.length > 0 ? (
+            searchedAccounts.map((user: IUser, idx: number) => {
+              console.log(userFollowers);
+              let followed = false;
+              if (userProfile) {
+                followed = checkIfAlreadyFollowing(
+                  userProfile._id,
+                  userFollowers
+                );
+              }
+
+              return (
+                <UserBadge
+                  key={idx}
+                  user={user}
+                  location="search"
+                  following={followed}
+                />
+              );
+            })
+          ) : (
+            <NoResults
+              text={`No account results for ${searchTerm}`}
+              music={false}
+            />
+          )}
+        </div>
+      )}
+
+      {tab === "song" && (
+        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+          {songs.map((song: Like, idx: number) => {
+            const alreadyLikedId = checkIfAlreadyLiked(song, userLikes);
+            let liked = false;
+
+            if (alreadyLikedId.length > 0) {
+              song._id = alreadyLikedId;
+              liked = true;
+            }
+
+            return <SongCard post={song} alreadyLiked={liked} key={idx} />;
+          })}
+        </div>
+      )}
+
+      {tab === "artist" && (
+        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+          {artists.map((artist: Like, idx: number) => {
+            const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
+            let liked = false;
+
+            if (alreadyLikedId.length > 0) {
+              artist._id = alreadyLikedId;
+              liked = true;
+            }
+
+            return <ArtistCard post={artist} alreadyLiked={liked} key={idx} />;
+          })}
+        </div>
+      )}
+
+      {tab === "album" && (
+        <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+          {albums.map((album: Like, idx: number) => {
+            const alreadyLikedId = checkIfAlreadyLiked(album, userLikes);
+            let liked = false;
+
+            if (alreadyLikedId.length > 0) {
+              album._id = alreadyLikedId;
+              liked = true;
+            }
+
+            return <AlbumCard post={album} alreadyLiked={liked} key={idx} />;
+          })}
+        </div>
+      )}
     </div>
   );
 };
-
 export const getServerSideProps = async ({
   params: { searchTerm },
 }: {
