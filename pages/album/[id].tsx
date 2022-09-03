@@ -35,6 +35,8 @@ const Album = ({ albumDetails }: IProps) => {
   const { userProfile, userLikes } = useAuthStore();
   const [liked, setLiked] = useState(false);
 
+  console.log(albumDetails)
+
   useEffect(() => {
     const alreadyLiked = checkIfAlreadyLiked(
       {
@@ -162,6 +164,7 @@ const Album = ({ albumDetails }: IProps) => {
                       name: song.name,
                       image: albumDetails.image,
                       spotifyId: song.spotifyId,
+                      by: albumDetails.by.map((artist: any) => artist.name)
                     }}
                   />
                 )}

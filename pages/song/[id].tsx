@@ -137,7 +137,7 @@ const Song = ({ songDetails }: IProps) => {
                       _id: liked ? postId : songDetails.uri,
                       type: "song",
                       image: songDetails.image,
-                      by: songDetails.artist,
+                      by: songDetails.artist.map((artist: any) => artist.name),
                       spotifyId: id,
                     }}
                   />
