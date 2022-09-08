@@ -48,8 +48,10 @@ const Song = ({ songDetails }: IProps) => {
   const { userLikes, userProfile } = useAuthStore();
 
   console.log(songDetails);
+  console.log(liked)
 
   useEffect(() => {
+    console.log(userLikes)
     const alreadyLiked = checkIfAlreadyLiked(
       {
         type: "song",
@@ -58,6 +60,8 @@ const Song = ({ songDetails }: IProps) => {
       },
       userLikes
     );
+
+    console.log(alreadyLiked)
 
     // setColor(genres[Math.floor(Math.random() * 10 + 1)].color);
     setLiked(alreadyLiked.length > 0 ? true : false);

@@ -35,8 +35,6 @@ const Album = ({ albumDetails }: IProps) => {
   const { userProfile, userLikes } = useAuthStore();
   const [liked, setLiked] = useState(false);
 
-  console.log(albumDetails)
-
   useEffect(() => {
     const alreadyLiked = checkIfAlreadyLiked(
       {
@@ -48,7 +46,8 @@ const Album = ({ albumDetails }: IProps) => {
     );
 
     setPostId(alreadyLiked);
-    setLiked(alreadyLiked.length > 0 ? true : false);
+    alreadyLiked.length > 0 ? setLiked(true) : setLiked(false)
+    console.log(liked)
   }, [liked, albumDetails.image, albumDetails.name, userLikes]);
 
   const handleRoute = (route: string, id: string) => {
