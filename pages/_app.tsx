@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto">
             <Sidebar />
           </div>
-          <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] flex-1">
+          <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] pr-5 flex-1">
             <Component {...pageProps} />
           </div>
         </div>

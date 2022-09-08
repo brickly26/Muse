@@ -46,7 +46,8 @@ const Album = ({ albumDetails }: IProps) => {
     );
 
     setPostId(alreadyLiked);
-    setLiked(alreadyLiked.length > 0 ? true : false);
+    alreadyLiked.length > 0 ? setLiked(true) : setLiked(false)
+    console.log(liked)
   }, [liked, albumDetails.image, albumDetails.name, userLikes]);
 
   const handleRoute = (route: string, id: string) => {
@@ -162,6 +163,7 @@ const Album = ({ albumDetails }: IProps) => {
                       name: song.name,
                       image: albumDetails.image,
                       spotifyId: song.spotifyId,
+                      by: albumDetails.by.map((artist: any) => artist.name)
                     }}
                   />
                 )}

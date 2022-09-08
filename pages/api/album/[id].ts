@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const dataToSend = {
       name: res1.data.albums[0].name,
-      image: res1.data.albums[0].images.length > 0 ? res1.data.albums[0].images[0].url : 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp',
+      image: res1.data.albums[0].images.length > 0 ? res1.data.albums[0].images[1].url : 'https://qph.cf2.quoracdn.net/main-qimg-4ec3bcdfd3c68b7287c07b58da0a99b7.webp',
       spotifyId: res1.data.albums[0].id,
       by: res1.data.albums[0].artists.map((artist: any) => {
         return {
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }),
     }
 
-    console.log(dataToSend)
+    console.log(res1.data.albums[0].images)
 
     res.status(200).json(dataToSend);
   }

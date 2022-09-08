@@ -39,7 +39,7 @@ const Home = ({ posts }: IProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-10 h-full pt-3">
+    <div className="flex flex-col items-center gap-10 h-full pt-3">
       {renderedPosts.map((post: Like, idx: number) => {
         let liked = false;
         let check = "";
