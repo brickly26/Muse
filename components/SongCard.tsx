@@ -24,10 +24,10 @@ const SongCard = ({ post, alreadyLiked, location }: IProps) => {
   console.log(post)
 
   return (
-    <div className={`flex items-center justify-between lg:w-[500px] lg:h-[150px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded bg-gray2`}>
-      <div className="flex gap-2 h-full items-center">
+    <div className={`flex items-center justify-between md:w-[500px] md:h-[150px] w-[250px] h-[80px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded bg-gray2`}>
+      <div className="flex gap-3 h-full items-center">
         <Link href={`/song/${post.spotifyId}`}>
-          <div className="rounded-md cursor-pointer lg:w-[100px] lg:h-[100px] mx-5">
+          <div className="rounded-md cursor-pointer w-[50px] md:w-[100px] md:mx-5 ml-2">
             <Image
               width={62}
               height={62}
@@ -41,8 +41,8 @@ const SongCard = ({ post, alreadyLiked, location }: IProps) => {
         <Link href={`/song/${post.spotifyId}`}>
           <div className="flex cursor-pointer">
             <div className="flex-3">
-              <p className="text-xl text-white mb-3">{post.name}</p>
-              <p className="text-md text-gray-400 hover:underline">
+              <p className="md:text-xl text-white md:mb-3">{post.name}</p>
+              <p className="md:text-lg hidden md:block text-gray-400 hover:underline">
                 {post.by.length === 1
                   ? post.by[0]
                   : post?.by.toString().replaceAll(",", ", ")}
@@ -52,7 +52,7 @@ const SongCard = ({ post, alreadyLiked, location }: IProps) => {
         </Link>
       </div>
       {userProfile && (
-        <div className="mr-10 pl-10">
+        <div className="lg:mr-10 lg:pl-10 mr-5">
           <LikeButton alreadyLiked={alreadyLiked} post={post} />
         </div>
       )}

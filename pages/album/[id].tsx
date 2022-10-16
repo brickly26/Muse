@@ -57,7 +57,7 @@ const Album = ({ albumDetails }: IProps) => {
   return (
     <>
       <div className="flex items-center justify-between w-full mt-10 rounded bg-gray2">
-        <div className="flex gap-6 w-full">
+        <div className="flex lg:gap-6 w-full">
           <div className="flex items-center m-5">
             <Image
               src={albumDetails.image}
@@ -70,9 +70,9 @@ const Album = ({ albumDetails }: IProps) => {
           <div className="flex flex-col justify-around flex-1 w-full">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
-                <p className="text-2xl mb-3">{albumDetails.name}</p>
+                <p className="lg:text-2xl text-lg mb-3">{albumDetails.name}</p>
                 <div className="flex flex-col">
-                  <p className="text-lg text-gray3">
+                  <p className="lg:text-lg text-md text-gray3">
                     By:&nbsp;&nbsp;
                     {albumDetails.by.map((artist: any, idx: number) => {
                       if (albumDetails.by.length - 1 !== idx) {
@@ -100,7 +100,7 @@ const Album = ({ albumDetails }: IProps) => {
                       </p> */}
                 </div>
               </div>
-              <div className="mr-16 pl-10">
+              <div className="lg:mr-16 lg:pl-10 mr-4">
                 {userProfile && (
                   <LikeButton
                     alreadyLiked={liked}
