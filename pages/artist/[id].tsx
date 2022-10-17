@@ -142,13 +142,13 @@ const Artist = ({ artistDetails }: IProps) => {
         })}
       </div>
 
-      <p className="text-2xl">Albums</p>
+      {/* <p className="text-2xl">Albums</p>
       <div className="rounded-md bg-gray2 p-8 w-full mx-auto">
         <div>{}</div>
         <div className="flex justify-end">
           <Pagination count={count} page={page} color="#1FB954" />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

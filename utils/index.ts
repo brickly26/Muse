@@ -30,22 +30,19 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
   let alreadyLikedId = ''
-  const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
-  if(filteredLikes.length > 0) {
-    filteredLikes.forEach((like: Like) => {
-      if (post.type === like.type && post.name === like.name) {
-        alreadyLikedId = like._id
-      }
-    })
+  const filteredLikes = userLikes.filter((like: Like) => like.spotifyId === post.spotifyId);
+  
+  if(filteredLikes.length === 1) {
+    alreadyLikedId = filteredLikes[0]._id
   }
 
   return alreadyLikedId
 }
 
 export const checkIfAlreadyFollowing = (user: any, userFollowers: any) => {
-  const filteredFollowing = userFollowers.filter((following: any) => user._id === following._id)
+  const filteredFollowing = userFollowers[0]?.following.filter((following: any) => user === following._id)
 
-  if(filteredFollowing.length > 0) {
+  if(filteredFollowing?.length === 0) {
     return true
   } else {
     return false

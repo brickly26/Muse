@@ -29,8 +29,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       spotifyId: `${album.data.uri.split(':')[2]}`
     }));
 
-    console.log(myAlbums[0].image)
-
     const myArtists = artists?.items.map((artist: any) => ({
       _id: `${artist.data.uri}`,
       type: 'artist',

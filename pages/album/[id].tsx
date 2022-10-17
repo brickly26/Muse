@@ -47,7 +47,6 @@ const Album = ({ albumDetails }: IProps) => {
 
     setPostId(alreadyLiked);
     alreadyLiked.length > 0 ? setLiked(true) : setLiked(false)
-    console.log(liked)
   }, [liked, albumDetails.image, albumDetails.name, userLikes]);
 
   const handleRoute = (route: string, id: string) => {

@@ -22,7 +22,7 @@ const SuggestedAccounts = () => {
       <div>
         {allUsers.slice(0, 5).map((user: IUser, idx: number) => (
           <Link href={`/profile/${user._id}`} key={idx}>
-            <div className="flex gap-3 hover:bg-primary bg-gray2 mb-2 p-2 cursor-pointer font-semibold rounded">
+            <div className="flex gap-3 hover:bg-primary lg:w-full w-[50px] bg-gray2 mb-2 lg:p-2 py-[9px] pl-[9px] cursor-pointer font-semibold rounded">
               <div className="w-8 h-8">
                 <Image 
                   src={user.image}
