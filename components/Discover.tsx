@@ -8,16 +8,16 @@ const Discover = () => {
   const router = useRouter();
   const { genre } = router.query;
 
-  const activeStyles = 'xl:border-2 hover:bg-gray2 xl:border-[#1FB954] xl:px-3 xl:py-2 py-1 pl-2 pr-2 rounded xl:rounded-full flex items-center justify-center cursor-pointer text-[#1FB954]'
+  const activeStyles = 'lg:border-2 hover:bg-gray2 lg:border-[#1FB954] lg:px-3 xl:py-2 py-1 pl-2 pr-2 rounded lg:rounded-full flex items-center justify-center cursor-pointer text-[#1FB954]'
 
-  const normalStyles = 'xl:border-2 hover:bg-gray xl:border-gray3 xl:px-3 xl:py-2 py-1 pl-2 pr-2 rounded xl:rounded-full flex items-center justify-center cursor-pointer text-gray-300'
+  const normalStyles = 'lg:border-2 hover:bg-gray lg:border-gray3 lg:px-3 xl:py-2 py-1 pl-2 pr-2 rounded lg:rounded-full flex items-center justify-center cursor-pointer text-gray-300'
 
   return (
-    <div className='xl:border-b-2 xl:border-gray3 pb-6'>
-      <p className='text-gray-200 font-semibold m-3 mt-4 hidden xl:block'>
+    <div className='lg:border-b-2 lg:border-gray3 pb-6'>
+      <p className='text-gray-200 font-semibold m-3 mt-4 hidden lg:block'>
         Discover
       </p>
-      <div className='flex xl:gap-3 gap-3 flex-wrap'>
+      <div className='flex lg:gap-3 gap-3 flex-wrap'>
         {genres.map((gen) => (
           <Link href={`/?genre=${gen.name}`} key={gen.name}>
             <div className={genre === gen.name ? activeStyles : normalStyles}>

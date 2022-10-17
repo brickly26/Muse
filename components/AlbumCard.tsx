@@ -24,8 +24,8 @@ const AlbumCard = ({ post, alreadyLiked, location }: IProps) => {
 
   return (
     <Link href={`/album/${post.spotifyId}`}>
-      <div className={`lg:w-[500px] lg:h-[600px] w-[200px] h-[300px] md:h-[400px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded cursor-pointer bg-gray2`}>
-        <div className="rounded-md lg:w-[450px] lg:h-[450px] mt-6 m-auto">
+      <div className={`md:w-[500px] w-[250px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded cursor-pointer bg-gray2`}>
+        <div className="rounded-md w-[225px] md:w-[450px] md:mt-6 mt-3 m-auto">
           <Image
             width={62}
             height={62}
@@ -36,11 +36,13 @@ const AlbumCard = ({ post, alreadyLiked, location }: IProps) => {
             alt={post.name}
           />
         </div>
-        <div className="flex m-6">
+        <div className="flex md:m-6 my-3 ml-3">
           <div className="flex-3">
-            <p className="text-2xl text-white mb-3">{post.name}</p>
-            <p className="text-lg text-gray-400 hover:underline">
-              {post.by.map((artist) => `${artist}, `)}
+            <p className="text-2xl text-white md:mb-3">{post.name}</p>
+            <p className="text-lg hidden md:block text-gray-400 hover:underline">
+              {post.by.length === 1
+                  ? post.by[0]
+                  : post?.by.toString().replaceAll(",", ", ")}
             </p>
           </div>
           {userProfile && (

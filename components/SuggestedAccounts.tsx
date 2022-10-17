@@ -14,8 +14,8 @@ const SuggestedAccounts = () => {
   }, [fetchAllUsers]);
 
   return (
-    <div className="xl:border-b-2 border-gray3">
-      <p className="text-gray-200 font-semibold m-3 mt-4 hidden xl:block">
+    <div className="lg:border-b-2 border-gray3">
+      <p className="text-gray-200 font-semibold m-3 mt-4 hidden lg:block">
         Suggested Accounts
       </p>
 
@@ -33,7 +33,7 @@ const SuggestedAccounts = () => {
                   layout="responsive"
                 />
               </div>
-              <div className="hidden xl:block">
+              <div className="hidden lg:block">
                 <p className="flex gap-1 items-center text-md font-bold lowercase">
                   {user.userName.replaceAll(' ', '')}
                   <GoVerified />

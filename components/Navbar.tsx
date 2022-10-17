@@ -47,26 +47,29 @@ const Navbar = ({ setRender }: IProps) => {
         </div>
       </Link>
 
-      <div className="relative hidden md:block">
-        <form
-          onSubmit={() => {}}
-          className="absolute md:static top-10 -left-20"
-        >
-          <input
-            type="text"
-            value={searchValue}
-            placeholder="Search..."
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="bg-white text-black px-4 py-2 md:text-md font-medium border-2 border-white focus:outline-none focus:border-2 focus:border-gray3 rounded-full w-[300px] md:w-[350px] md:top-0 bg-black"
-          />
-          <button
-            onClick={handleSearch}
-            className="absolute md:right-5 right-6 top-3 border-l-2 border-gray-200 pl-4 text-xl text-gray-400"
+      {user && (
+        <div className="relative sm:w-[275px] md:w-[350px]">
+          <form
+            onSubmit={() => {}}
+            className="static top-10 -left-20"
           >
-            <BiSearch />
-          </button>
-        </form>
-      </div>
+            <input
+              type="text"
+              value={searchValue}
+              placeholder="Search..."
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="bg-white text-black px-4 py-2 md:text-md font-medium border-2 border-white focus:outline-none focus:border-2 focus:border-gray3 rounded-full w-[150px] sm:w-[275px] md:w-[350px] md:top-0 bg-black"
+            />
+            <button
+              onClick={handleSearch}
+              className="absolute sm:right-5 right-3 top-3 border-l-2 border-gray-200 sm:pl-4 pl-2 text-xl text-gray-400"
+            >
+              <BiSearch />
+            </button>
+          </form>
+        </div>
+      )}
+      
 
       {user ? (
         <div className="flex gap-5 md:gap-10">

@@ -19,20 +19,20 @@ const Sidebar = () => {
   return (
     <div>
       <p
-        className='inline-block xl:hidden m-2 ml-4 mt-3 text-2xl text-gray3 cursor-pointer'   
+        className='inline-block lg:hidden m-2 ml-4 mt-3 text-2xl text-gray3 cursor-pointer'   
         onClick={() => {setShowSideBar((prev) => !prev)}}   
       >
         {showSideBar ? <ImCancelCircle /> : <AiOutlineMenu />}
       </p>
       {showSideBar && (
-        <div className='xl:w-400 w-28 pl-3 flex flex-col justify-start mb-10 border-r-2 border-gray3 xl:border-0 py-3'>
-          <div className='xl:border-b-2 border-gray3 xl:pb-4'>
+        <div className='lg:w-400 w-28 pl-3 flex flex-col justify-start mb-10 border-r-2 border-gray3 lg:border-0 py-3'>
+          <div className='lg:border-b-2 border-gray3 lg:pb-4'>
             <Link href='/' >
               <div className={pathname === '/' ? activeStyles : normalStyles}>
                 <p className='text-2xl'>
                   <AiFillHome />
                 </p>
-                <span className='text-xl hidden xl:block'>
+                <span className='text-xl hidden lg:block'>
                   Home
                 </span>
               </div>

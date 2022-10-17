@@ -6,7 +6,6 @@ import moment from 'moment'
 
 import { IUser, Like } from "../types";
 import FollowButton from "./FollowButton";
-import LikeButton from "./LikeButton";
 import useAuthStore from "../store/authStore";
 
 interface IProps {
@@ -79,7 +78,7 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
           </div>
           <div>
             <Link href={`/`}>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col justify-center gap-2">
                 <p className="flex gap-2 text-lg items-center font-bold">
                   {user.userName}
                   <GoVerified className="text-[#1FB954] text-md" />
@@ -89,9 +88,9 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
                 </p>
               </div>
             </Link>
-            <p className="text-sm text-neutral-500 mt-3">{`Liked this ${post} ${moment(date).fromNow()}`}</p>
           </div>
         </div>
+        <p className="text-md text-neutral-500 mt-3 ml-3">{`Liked this ${post} ${moment(date).fromNow()}`}</p>
       </div>
     );
   }
@@ -126,7 +125,7 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
       </Link>
     );
   }
-  return <div>hellow</div>;
+  return <div>hello</div>;
 };
 
 export default UserBadge;
