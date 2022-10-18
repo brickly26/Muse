@@ -95,7 +95,7 @@ const Navbar = ({ setRender }: IProps) => {
               removeUserLikes();
               removeUserFollowers();
               setRender('1');
-              router.reload('/')
+              router.reload()
             }}
           >
             <FiLogOut color="#1fb954" fontSize={21} />
@@ -103,7 +103,7 @@ const Navbar = ({ setRender }: IProps) => {
         </div>
       ) : (
         <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, router, setRender, fetchUserFollowers)}
+            onSuccess={(response) => createOrGetUser(response, addUser, fetchUserLikes, setRender, fetchUserFollowers, router)}
             onError={() => console.log('Error')}
         />
       )}

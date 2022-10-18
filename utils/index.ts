@@ -1,11 +1,10 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import { Like } from '../types';
-import useAuthStore from '../store/authStore';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, router: any, fetchUserFollowers: any, setRender: any) => {
+export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, setRender: any, fetchUserFollowers: any, router: any) => {
   const decoded: { name: string, picture: string, sub: string} = jwt_decode(response.credential);
 
   const { name, picture, sub } = decoded;
@@ -25,6 +24,7 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   fetchUserLikes(user._id);
   setRender('2');
   await axios.post(`${BASE_URL}/api/auth`, user);
+  router.reload()
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
