@@ -33,38 +33,27 @@ interface IProps {
 }
 
 const Artist = ({ artistDetails }: IProps) => {
-  const [render, setRender] = useState(false);
+  const { userLikes, userProfile } = useAuthStore();
   const router = useRouter();
   const { id }: any = router.query;
-  const [liked, setLiked] = useState(false);
-  const [postId, setPostId] = useState("");
-  const [renderedAlbums, setRenderedAlbums] = useState(
-    artistDetails.albums.length > 5
-      ? artistDetails.albums.slice(0, 5)
-      : artistDetails.albums
-  );
-  const [page, setPage] = useState(1);
-  const PER_PAGE = 5;
-  const count = Math.ceil(artistDetails.albums.length / PER_PAGE);
-  const { userLikes, userProfile } = useAuthStore();
-
-  useEffect(() => {
-    const alreadyLiked = checkIfAlreadyLiked(
-      {
-        type: "artist",
-        image: artistDetails.image,
-        name: artistDetails.name,
-      },
-      userLikes
-    );
-
-    setLiked(alreadyLiked.length > 0 ? true : false);
-    setPostId(alreadyLiked);
-  }, [liked, artistDetails.image, artistDetails.name, userLikes]);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-  };
+  const [liked, setLiked] = useState(checkIfAlreadyLiked(
+    {
+      type: "artist",
+      image: artistDetails.image,
+      name: artistDetails.name,
+      spotifyId: artistDetails.spotifyId
+    },
+    userLikes
+  ).length > 0);
+  const [postId, setPostId] = useState(checkIfAlreadyLiked(
+    {
+      type: "artist",
+      image: artistDetails.image,
+      name: artistDetails.name,
+      spotifyId: artistDetails.spotifyId
+    },
+    userLikes
+  ));
 
   return (
     <>
@@ -114,6 +103,18 @@ const Artist = ({ artistDetails }: IProps) => {
       <p className="text-2xl">Top Songs</p>
       <div className="rounded-md bg-gray2 p-8 w-full mx-auto">
         {artistDetails.topSongs.map((song: any, idx: number) => {
+          const alreadyLiked = checkIfAlreadyLiked(
+            {
+              spotifyId: song.spotifyId
+            },
+            userLikes
+          );
+
+          let liked1 = false;
+
+          if (alreadyLiked.length > 0) {
+            liked1 = true;
+          }
           return (
             <div
               key={idx}
@@ -135,20 +136,24 @@ const Artist = ({ artistDetails }: IProps) => {
               </div>
               <div className="flex gap-6 items-center">
                 <p>{song.playCount}</p>
-                {userProfile && <LikeButton />}
+                {userProfile && (
+                  <LikeButton 
+                  alreadyLiked={liked1}
+                  post={{
+                    _id: liked1 ? alreadyLiked : song.spotifyId,
+                    type: "song",
+                    name: song.name,
+                    image: song.image,
+                    spotifyId: song.spotifyId,
+                    by: song.by.map((artist: any) => artist.name)
+                  }}
+                  />
+                )}
               </div>
             </div>
           );
         })}
       </div>
-
-      {/* <p className="text-2xl">Albums</p>
-      <div className="rounded-md bg-gray2 p-8 w-full mx-auto">
-        <div>{}</div>
-        <div className="flex justify-end">
-          <Pagination count={count} page={page} color="#1FB954" />
-        </div>
-      </div> */}
     </>
   );
 };

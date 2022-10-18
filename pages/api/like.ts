@@ -9,6 +9,8 @@ export default async function handler(
   if (req.method === "PUT") {
     const { userId, post, like } = req.body;
 
+    console.log(like)
+
     if(!like) {
       delete post._id;
       post._type = "like";

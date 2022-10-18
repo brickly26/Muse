@@ -25,13 +25,12 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   fetchUserLikes(user._id);
   setRender('2');
   await axios.post(`${BASE_URL}/api/auth`, user);
-  router.reload('/')
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
   let alreadyLikedId = ''
   const filteredLikes = userLikes.filter((like: Like) => like.spotifyId === post.spotifyId);
-  
+
   if(filteredLikes.length === 1) {
     alreadyLikedId = filteredLikes[0]._id
   }

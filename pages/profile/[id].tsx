@@ -5,7 +5,6 @@ import moment from "moment";
 import { GoVerified } from "react-icons/go";
 import axios from "axios";
 import { BASE_URL, checkIfAlreadyFollowing } from "../../utils";
-import { Like, IUser } from "../../types";
 import { checkIfAlreadyLiked } from "../../utils";
 import SongCard from "../../components/SongCard";
 import ArtistCard from "../../components/ArtistCard";
@@ -13,7 +12,6 @@ import AlbumCard from "../../components/AlbumCard";
 import NoResults from "../../components/NoResults";
 import useAuthStore from "../../store/authStore";
 import UserBadge from "../../components/UserBadge";
-import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import FollowButton from "../../components/FollowButton";
 
@@ -188,9 +186,9 @@ const Profile = ({ user }: IProps) => {
           {tab === "followers" &&
             (user.followers.length > 0 ? (
               user.followers.map((user: any, idx: number) => {
-                let followed;
+                let followed = false;
                 if (userProfile) {
-                  followed = checkIfAlreadyFollowing(user._id, userFollowers);
+                  followed = checkIfAlreadyFollowing(userProfile._id, userFollowers);
                 }
 
                 return (
@@ -209,9 +207,9 @@ const Profile = ({ user }: IProps) => {
           {tab === "following" &&
             (user.following.length > 0 ? (
               user.following.map((user: any, idx: number) => {
-                let followed;
+                let followed = false;
                 if (userProfile) {
-                  followed = checkIfAlreadyFollowing(user._id, userFollowers);
+                  followed = checkIfAlreadyFollowing(userProfile._id, userFollowers);
                 }
 
                 return (

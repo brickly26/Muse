@@ -40,12 +40,28 @@ interface IProps {
 const Song = ({ songDetails }: IProps) => {
   const router = useRouter();
   const { id }: any = router.query;
-  const [render, setRender] = useState("");
-  const [postId, setPostId] = useState("");
-  const [liked, setLiked] = useState(false);
-  const [color, setColor] = useState("");
-  const [lyrics, setLyrics] = useState(true);
   const { userLikes, userProfile } = useAuthStore();
+  const [postId, setPostId] = useState(checkIfAlreadyLiked(
+    {
+      type: "song",
+      image: songDetails.image,
+      name: songDetails.name,
+      spotifyId: songDetails.uri.split(':')[2]
+    },
+    userLikes
+  ));
+  const [liked, setLiked] = useState(checkIfAlreadyLiked(
+    {
+      type: "song",
+      image: songDetails.image,
+      name: songDetails.name,
+      spotifyId: songDetails.uri.split(':')[2]
+    },
+    userLikes
+  ).length > 0);
+  const [lyrics, setLyrics] = useState(true);
+
+  console.log(songDetails)
 
   useEffect(() => {
     const alreadyLiked = checkIfAlreadyLiked(
@@ -53,12 +69,13 @@ const Song = ({ songDetails }: IProps) => {
         type: "song",
         image: songDetails.image,
         name: songDetails.name,
+        spotifyId: songDetails.uri.split(':')[2]
       },
       userLikes
     );
 
     // setColor(genres[Math.floor(Math.random() * 10 + 1)].color);
-    setLiked(alreadyLiked.length > 0 ? true : false);
+    setLiked(alreadyLiked.length > 0);
     setPostId(alreadyLiked);
   }, [liked, songDetails.image, songDetails.name, userLikes]);
 

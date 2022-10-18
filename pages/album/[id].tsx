@@ -29,25 +29,16 @@ interface IProps {
 }
 
 const Album = ({ albumDetails }: IProps) => {
-  const router = useRouter();
-  const [render, setRender] = useState();
-  const [postId, setPostId] = useState("");
   const { userProfile, userLikes } = useAuthStore();
-  const [liked, setLiked] = useState(false);
-
-  useEffect(() => {
-    const alreadyLiked = checkIfAlreadyLiked(
-      {
-        type: "album",
-        image: albumDetails.image,
-        name: albumDetails.name,
-      },
-      userLikes
-    );
-
-    setPostId(alreadyLiked);
-    alreadyLiked.length > 0 ? setLiked(true) : setLiked(false)
-  }, [liked, albumDetails.image, albumDetails.name, userLikes]);
+  const router = useRouter();
+  const postId = checkIfAlreadyLiked(
+    albumDetails,
+    userLikes
+  );
+  const liked = checkIfAlreadyLiked(
+    albumDetails,
+    userLikes
+  ).length > 0;
 
   const handleRoute = (route: string, id: string) => {
     router.push(`/${route}/${id}`);
@@ -106,7 +97,7 @@ const Album = ({ albumDetails }: IProps) => {
                     post={{
                       name: albumDetails.name,
                       _id: liked ? postId : albumDetails.spotifyId,
-                      type: "artist",
+                      type: "album",
                       image: albumDetails.image,
                       by: albumDetails.by.map((artist: any) => artist.name),
                       spotifyId: albumDetails.spotifyId,
@@ -124,9 +115,7 @@ const Album = ({ albumDetails }: IProps) => {
         {albumDetails.songs.map((song: any, idx: number) => {
           const alreadyLiked = checkIfAlreadyLiked(
             {
-              image: albumDetails.image,
-              type: "song",
-              name: song.name,
+              spotifyId: song.spotifyId
             },
             userLikes
           );
