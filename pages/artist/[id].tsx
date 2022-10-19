@@ -56,7 +56,7 @@ const Artist = ({ artistDetails }: IProps) => {
   ));
 
   return (
-    <>
+    <div className="w-full px-10">
       <div className="flex items-center justify-between w-full mt-10 rounded bg-gray2">
         <div className="flex gap-6 w-full">
           <div className="flex items-center m-5">
@@ -100,7 +100,7 @@ const Artist = ({ artistDetails }: IProps) => {
           </div>
         </div>
       </div>
-      <p className="text-2xl">Top Songs</p>
+      <p className="text-2xl mt-10 mb-5">Top Songs</p>
       <div className="rounded-md bg-gray2 p-8 w-full mx-auto">
         {artistDetails.topSongs.map((song: any, idx: number) => {
           const alreadyLiked = checkIfAlreadyLiked(
@@ -135,7 +135,7 @@ const Artist = ({ artistDetails }: IProps) => {
                 <p className="text-lg">{song.name}</p>
               </div>
               <div className="flex gap-6 items-center">
-                <p>{song.playCount}</p>
+                <p className="sm:block hidden">{song.playCount}</p>
                 {userProfile && (
                   <LikeButton 
                   alreadyLiked={liked1}
@@ -154,7 +154,7 @@ const Artist = ({ artistDetails }: IProps) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
