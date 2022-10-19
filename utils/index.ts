@@ -1,11 +1,10 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode'
 import { Like } from '../types';
-import useAuthStore from '../store/authStore';
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
-export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, router: any, fetchUserFollowers: any, setRender: any) => {
+export const createOrGetUser = async (response: any, addUser: any, fetchUserLikes: any, setRender: any, fetchUserFollowers: any, router: any) => {
   const decoded: { name: string, picture: string, sub: string} = jwt_decode(response.credential);
 
   const { name, picture, sub } = decoded;
@@ -25,27 +24,24 @@ export const createOrGetUser = async (response: any, addUser: any, fetchUserLike
   fetchUserLikes(user._id);
   setRender('2');
   await axios.post(`${BASE_URL}/api/auth`, user);
-  router.reload('/')
+  router.reload()
 };
 
 export const checkIfAlreadyLiked = (post: any, userLikes: any) => {
   let alreadyLikedId = ''
-  const filteredLikes = userLikes.filter((like: Like) => like.image === post.image);
-  if(filteredLikes.length > 0) {
-    filteredLikes.forEach((like: Like) => {
-      if (post.type === like.type && post.name === like.name) {
-        alreadyLikedId = like._id
-      }
-    })
+  const filteredLikes = userLikes.filter((like: Like) => like.spotifyId === post.spotifyId);
+
+  if(filteredLikes.length === 1) {
+    alreadyLikedId = filteredLikes[0]._id
   }
 
   return alreadyLikedId
 }
 
 export const checkIfAlreadyFollowing = (user: any, userFollowers: any) => {
-  const filteredFollowing = userFollowers.filter((following: any) => user._id === following._id)
+  const filteredFollowing = userFollowers[0]?.following.filter((following: any) => user === following._id)
 
-  if(filteredFollowing.length > 0) {
+  if(filteredFollowing?.length === 0) {
     return true
   } else {
     return false

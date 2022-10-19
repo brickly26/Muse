@@ -50,8 +50,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }),
     }
 
-    console.log(res1.data.albums[0].images)
-
     res.status(200).json(dataToSend);
   }
 }

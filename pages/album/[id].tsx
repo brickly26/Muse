@@ -29,33 +29,23 @@ interface IProps {
 }
 
 const Album = ({ albumDetails }: IProps) => {
-  const router = useRouter();
-  const [render, setRender] = useState();
-  const [postId, setPostId] = useState("");
   const { userProfile, userLikes } = useAuthStore();
-  const [liked, setLiked] = useState(false);
-
-  useEffect(() => {
-    const alreadyLiked = checkIfAlreadyLiked(
-      {
-        type: "album",
-        image: albumDetails.image,
-        name: albumDetails.name,
-      },
-      userLikes
-    );
-
-    setPostId(alreadyLiked);
-    alreadyLiked.length > 0 ? setLiked(true) : setLiked(false)
-    console.log(liked)
-  }, [liked, albumDetails.image, albumDetails.name, userLikes]);
+  const router = useRouter();
+  const postId = checkIfAlreadyLiked(
+    albumDetails,
+    userLikes
+  );
+  const liked = checkIfAlreadyLiked(
+    albumDetails,
+    userLikes
+  ).length > 0;
 
   const handleRoute = (route: string, id: string) => {
     router.push(`/${route}/${id}`);
   };
 
   return (
-    <>
+    <div className="w-full px-10">
       <div className="flex items-center justify-between w-full mt-10 rounded bg-gray2">
         <div className="flex lg:gap-6 w-full">
           <div className="flex items-center m-5">
@@ -107,7 +97,7 @@ const Album = ({ albumDetails }: IProps) => {
                     post={{
                       name: albumDetails.name,
                       _id: liked ? postId : albumDetails.spotifyId,
-                      type: "artist",
+                      type: "album",
                       image: albumDetails.image,
                       by: albumDetails.by.map((artist: any) => artist.name),
                       spotifyId: albumDetails.spotifyId,
@@ -120,14 +110,12 @@ const Album = ({ albumDetails }: IProps) => {
         </div>
       </div>
 
-      <p className="text-2xl">Songs</p>
+      <p className="text-2xl mt-10 mb-5">Songs</p>
       <div className="rounded-md bg-gray2 p-8 w-full mx-auto">
         {albumDetails.songs.map((song: any, idx: number) => {
           const alreadyLiked = checkIfAlreadyLiked(
             {
-              image: albumDetails.image,
-              type: "song",
-              name: song.name,
+              spotifyId: song.spotifyId
             },
             userLikes
           );
@@ -153,7 +141,7 @@ const Album = ({ albumDetails }: IProps) => {
                 <p className="text-lg">{song.name}</p>
               </div>
               <div className="flex gap-6 items-center">
-                <p>{song.playCount}</p>
+                <p className="sm:block hidden">{song.playCount}</p>
                 {userProfile && (
                   <LikeButton
                     alreadyLiked={liked1}
@@ -172,7 +160,7 @@ const Album = ({ albumDetails }: IProps) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

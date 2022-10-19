@@ -49,7 +49,7 @@ const Home = ({ posts }: IProps) => {
             let liked = false;
             let check = "";
             if (userProfile) {
-              check = checkIfAlreadyLiked(userProfile._id, userLikes);
+              check = checkIfAlreadyLiked(post, userLikes);
             }
 
             if (check.length > 0) {

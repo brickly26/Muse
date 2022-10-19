@@ -21,8 +21,6 @@ interface IProps {
 const SongCard = ({ post, alreadyLiked, location }: IProps) => {
   const { userProfile } = useAuthStore();
 
-  console.log(post)
-
   return (
     <div className={`flex items-center justify-between md:w-[500px] md:h-[150px] w-[250px] h-[80px] ${location==='profile' ? 'mb-0' : 'mb-10'} rounded bg-gray2`}>
       <div className="flex gap-3 h-full items-center">

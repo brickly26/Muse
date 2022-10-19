@@ -40,31 +40,42 @@ interface IProps {
 const Song = ({ songDetails }: IProps) => {
   const router = useRouter();
   const { id }: any = router.query;
-  const [render, setRender] = useState("");
-  const [postId, setPostId] = useState("");
-  const [liked, setLiked] = useState(false);
-  const [color, setColor] = useState("");
-  const [lyrics, setLyrics] = useState(true);
   const { userLikes, userProfile } = useAuthStore();
+  const [postId, setPostId] = useState(checkIfAlreadyLiked(
+    {
+      type: "song",
+      image: songDetails.image,
+      name: songDetails.name,
+      spotifyId: songDetails.uri.split(':')[2]
+    },
+    userLikes
+  ));
+  const [liked, setLiked] = useState(checkIfAlreadyLiked(
+    {
+      type: "song",
+      image: songDetails.image,
+      name: songDetails.name,
+      spotifyId: songDetails.uri.split(':')[2]
+    },
+    userLikes
+  ).length > 0);
+  const [lyrics, setLyrics] = useState(true);
 
-  console.log(songDetails);
-  console.log(liked)
+  console.log(songDetails)
 
   useEffect(() => {
-    console.log(userLikes)
     const alreadyLiked = checkIfAlreadyLiked(
       {
         type: "song",
         image: songDetails.image,
         name: songDetails.name,
+        spotifyId: songDetails.uri.split(':')[2]
       },
       userLikes
     );
 
-    console.log(alreadyLiked)
-
     // setColor(genres[Math.floor(Math.random() * 10 + 1)].color);
-    setLiked(alreadyLiked.length > 0 ? true : false);
+    setLiked(alreadyLiked.length > 0);
     setPostId(alreadyLiked);
   }, [liked, songDetails.image, songDetails.name, userLikes]);
 
@@ -77,9 +88,9 @@ const Song = ({ songDetails }: IProps) => {
   };
 
   return (
-    <>
+    <div className="w-full px-10">
       <div className="flex items-center justify-between w-full my-10 rounded bg-gray2">
-        <div className="flex gap-6 w-full">
+        <div className="flex sm:gap-6 w-full">
           <div className="flex items-center m-5">
             <Image
               src={songDetails.image}
@@ -89,12 +100,12 @@ const Song = ({ songDetails }: IProps) => {
               alt={songDetails.name}
             />
           </div>
-          <div className="flex flex-col justify-around flex-1 w-full">
+          <div className="flex flex-col py-3 justify-around flex-1 w-full">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
-                <p className="text-2xl mb-3">{songDetails.name}</p>
+                <p className="sm:text-2xl text-lg mb-3">{songDetails.name}</p>
                 <div className="flex flex-col">
-                  <p className="text-lg text-gray3">
+                  <p className="sm:text-lg text-md text-gray3">
                     By:&nbsp;&nbsp;
                     {songDetails.artist.map((artist: any, idx: number) => {
                       if (songDetails.artist.length - 1 !== idx) {
@@ -116,15 +127,15 @@ const Song = ({ songDetails }: IProps) => {
                       }
                     })}
                   </p>
-                  <p className="text-lg text-gray3">
+                  <p className="text-lg sm:block hidden sm text-gray3">
                     Released Date:&nbsp;&nbsp;
                     {moment(songDetails.releaseDate).format("MMM Do YYYY")}
                   </p>
                   {songDetails.album ? (
-                    <div className="flex">
-                      <p className="text-lg">Album:&nbsp;&nbsp;</p>
+                    <div className="flex w-[150px]">
+                      <p className="sm:text-lg text-md">Album:&nbsp;&nbsp;</p>
                       <Link href={`/album/${songDetails.album.id}`}>
-                        <p className="text-gray3 text-lg hover:underline cursor-pointer">{`${songDetails.album.name}`}</p>
+                        <p className="text-gray3 sm:text-lg text-md hover:underline cursor-pointer">{`${songDetails.album.name}`}</p>
                       </Link>
                     </div>
                   ) : (
@@ -132,7 +143,7 @@ const Song = ({ songDetails }: IProps) => {
                   )}
                 </div>
               </div>
-              <div className="mr-16 pl-10">
+              <div className="md:mr-16 mr-8 pl-4">
                 {userProfile && (
                   <LikeButton
                     alreadyLiked={liked}
@@ -162,7 +173,8 @@ const Song = ({ songDetails }: IProps) => {
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
       ></iframe>
 
-      <p className="text-3xl mx-auto">Lyrics</p>
+      <p className="text-3xl mx-auto mt-10 mb-5">Lyrics</p>
+
       <div className="rounded-md bg-[#27856A] p-10 w-full mx-auto">
         {songDetails.lyrics &&
           (lyrics ? (
@@ -178,7 +190,7 @@ const Song = ({ songDetails }: IProps) => {
               </div>
               <div>
                 {songDetails.shortLyrics.map((lyric: string, idx: number) => (
-                  <p key={idx} className="text-2xl">
+                  <p key={idx} className="sm:text-2xl text-lg">
                     {lyric}
                   </p>
                 ))}
@@ -197,7 +209,7 @@ const Song = ({ songDetails }: IProps) => {
               </div>
               <div>
                 {songDetails.lyrics.map((lyric: string, idx: number) => (
-                  <p key={idx} className="text-2xl">
+                  <p key={idx} className="sm:text-2xl text-lg">
                     {lyric}
                   </p>
                 ))}
@@ -205,7 +217,7 @@ const Song = ({ songDetails }: IProps) => {
             </>
           ))}
       </div>
-    </>
+    </div>
   );
 };
 

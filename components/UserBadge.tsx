@@ -21,9 +21,9 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
 
   if (location === "search") {
     return (
-      <div className="flex items-center justify-between lg:w-[500px] lg:h-[200px] w-[200px] h-[300px] md:h-[400px] mb-3 rounded bg-gray2">
+      <div className="flex items-center justify-between md:w-[500px] md:h-[200px] w-[250px] h-[75px]  mb-3 rounded bg-gray2">
         <div className="flex gap-2 h-full items-center">
-          <div className="rounded-full lg:w-[100px] lg:h-[100px] m-5">
+          <div className="rounded-full md:w-[100px] w-[50px] md:m-5 ml-2">
             <Link href={`/profile/${user._id}`}>
               <div className="m-0 p-0">
                 <Image
@@ -40,7 +40,7 @@ const UserBadge = ({ user, location, post = null, following = false, date }: IPr
           <div>
             <Link href={`/`}>
               <div className="flex flex-col justify-center gap-2">
-                <p className="flex gap-2 text-2xl items-center font-bold">
+                <p className="flex md:gap-2 md:text-2xl text-md items-center font-bold">
                   {user.userName}
                   <GoVerified className="text-[#1FB954] text-md" />
                 </p>

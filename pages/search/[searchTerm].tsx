@@ -54,27 +54,27 @@ const Search = ({ albums, songs, artists }: IProps) => {
       </div>
       <div className="mt-4 flex flex-col gap-10 overflow-auto h-[88vh] pr-5 flex-1">
         <div className="w-full">
-          <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
+          <div className="flex sm:gap-10 gap-4 mb-10 border-b-2 border-gray3 w-full">
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${accountTab}`}
+              className={`sm:text-xl text-md font-semibold cursor-pointer mt-2 ${accountTab}`}
               onClick={() => setTab("account")}
             >
               Accounts
             </p>
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${songTab}`}
+              className={`sm:text-xl text-md font-semibold cursor-pointer mt-2 ${songTab}`}
               onClick={() => setTab("song")}
             >
               Tracks
             </p>
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${artistTab}`}
+              className={`sm:text-xl text-md font-semibold cursor-pointer mt-2 ${artistTab}`}
               onClick={() => setTab("artist")}
             >
               Artists
             </p>
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${albumTab}`}
+              className={`sm:text-xl text-md font-semibold cursor-pointer mt-2 ${albumTab}`}
               onClick={() => setTab("album")}
             >
               Albums
@@ -85,7 +85,6 @@ const Search = ({ albums, songs, artists }: IProps) => {
             <div className="md:mt-16">
               {searchedAccounts.length > 0 ? (
                 searchedAccounts.map((user: IUser, idx: number) => {
-                  console.log(userFollowers);
                   let followed = false;
                   if (userProfile) {
                     followed = checkIfAlreadyFollowing(
@@ -113,7 +112,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
           )}
 
           {tab === "song" && (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="md:mt-16 mt-10 flex flex-col gap-6 justify-start items-center">
               {songs.map((song: Like, idx: number) => {
                 const alreadyLikedId = checkIfAlreadyLiked(song, userLikes);
                 let liked = false;
@@ -129,7 +128,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
           )}
 
           {tab === "artist" && (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="md:mt-16 mt-10 flex flex-col gap-6 justify-start items-center">
               {artists.map((artist: Like, idx: number) => {
                 const alreadyLikedId = checkIfAlreadyLiked(artist, userLikes);
                 let liked = false;
@@ -147,7 +146,7 @@ const Search = ({ albums, songs, artists }: IProps) => {
           )}
 
           {tab === "album" && (
-            <div className="md:mt-16 flex md:flex-wrap gap-6 md:justify-start">
+            <div className="md:mt-16 mt-10 flex flex-col gap-6 justify-start items-center">
               {albums.map((album: Like, idx: number) => {
                 const alreadyLikedId = checkIfAlreadyLiked(album, userLikes);
                 let liked = false;

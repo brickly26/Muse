@@ -29,7 +29,8 @@ export const userLikesQuery = (userId: string | string[]) => {
     _id,
     image,
     type,
-    likedBy
+    likedBy,
+    spotifyId
   }`;
 
   return query;

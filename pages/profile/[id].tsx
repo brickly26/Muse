@@ -5,7 +5,6 @@ import moment from "moment";
 import { GoVerified } from "react-icons/go";
 import axios from "axios";
 import { BASE_URL, checkIfAlreadyFollowing } from "../../utils";
-import { Like, IUser } from "../../types";
 import { checkIfAlreadyLiked } from "../../utils";
 import SongCard from "../../components/SongCard";
 import ArtistCard from "../../components/ArtistCard";
@@ -13,8 +12,8 @@ import AlbumCard from "../../components/AlbumCard";
 import NoResults from "../../components/NoResults";
 import useAuthStore from "../../store/authStore";
 import UserBadge from "../../components/UserBadge";
-import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import FollowButton from "../../components/FollowButton";
 
 interface IProps {
   user: any;
@@ -25,7 +24,6 @@ const Profile = ({ user }: IProps) => {
     useAuthStore();
   const [currUser, setUser] = useState(userProfile);
   const [tab, setTab] = useState("likes");
-  const [render, setRender] = useState("false");
 
   useEffect(() => {
     if (currUser) {
@@ -39,7 +37,13 @@ const Profile = ({ user }: IProps) => {
   const followersTab =
     tab === "followers" ? "border-b-2 border-white" : "text-gray3";
 
-  console.log(user);
+  let followed = false;
+  if (userProfile) {
+    followed = checkIfAlreadyFollowing(
+      userProfile._id,
+      userFollowers
+    );
+  }
 
   return (
     <div className="flex gap-6 md:gap-20">
@@ -78,23 +82,32 @@ const Profile = ({ user }: IProps) => {
                 </Link>
               </div>
             </div>
+            <div className="flex justify-end">
+              {userProfile && user._id !== userProfile._id && (
+                <FollowButton
+                  userId={user._id}
+                  following={followed}
+                  location="profile"
+                />
+              )}
+            </div>
           </div>
 
-          <div className="flex gap-10 mb-10 mt10 border-b-2 border-gray3 w-full">
+          <div className="flex sm:gap-10 gap-6 mb-10 border-b-2 border-gray3 w-full">
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${likesTab}`}
+              className={`sm:text-xl text-lg font-semibold cursor-pointer mt-2 ${likesTab}`}
               onClick={() => setTab("likes")}
             >
               Likes
             </p>
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${followersTab}`}
+              className={`sm:text-xl text-lg font-semibold cursor-pointer mt-2 ${followersTab}`}
               onClick={() => setTab("followers")}
             >
               Followers
             </p>
             <p
-              className={`text-xl font-semibold cursor-pointer mt-2 ${followingTab}`}
+              className={`sm:text-xl text-lg font-semibold cursor-pointer mt-2 ${followingTab}`}
               onClick={() => setTab("following")}
             >
               Following
@@ -173,9 +186,9 @@ const Profile = ({ user }: IProps) => {
           {tab === "followers" &&
             (user.followers.length > 0 ? (
               user.followers.map((user: any, idx: number) => {
-                let followed;
+                let followed = false;
                 if (userProfile) {
-                  followed = checkIfAlreadyFollowing(user._id, userFollowers);
+                  followed = checkIfAlreadyFollowing(userProfile._id, userFollowers);
                 }
 
                 return (
@@ -194,9 +207,9 @@ const Profile = ({ user }: IProps) => {
           {tab === "following" &&
             (user.following.length > 0 ? (
               user.following.map((user: any, idx: number) => {
-                let followed;
+                let followed = false;
                 if (userProfile) {
-                  followed = checkIfAlreadyFollowing(user._id, userFollowers);
+                  followed = checkIfAlreadyFollowing(userProfile._id, userFollowers);
                 }
 
                 return (
